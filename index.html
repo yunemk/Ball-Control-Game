@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>小学生用プログラミングWebアプリ</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <style>
+    .striped li:nth-child(even) {
+      background: #f5f5f5;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mt-2">
+    <div class="container">
+      <h1>プログラミングアプリ（案）</h1>
+      <h2>説明</h2>
+      <p>プログラミング的思考を養うための、小学生向けプログラミングアプリケーションです。
+        web上には様々なIT教育のためのアプリケーションがありますが、無料だとしても会員登録やメールアドレスの取得を必要とする場合がほとんどです。
+        そのようなめんどくさい作業を必要としないwebアプリというのがあまり無かったので作りました。
+        プログラミング的思考に軽く触れるには十分ですが、教養として身に着ける分にはこのサイトの実力では不十分です。
+        「勉強」とは思わずに「遊び」程度に考えてください。
+      </p>
+    </div>
+  </header>
+
+  <hr class="my-4">
+
+  <section id="game">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 text-center">
+          <div class="border border-primary h-100 px-2 mx-2">
+            <h3 class="mt-2">動作を追加する</h3>
+            <ul id="actions" class="list-group">
+              <button type="button" class="list-group-item list-group-item-action">上へ1マス</button>
+              <button type="button" class="list-group-item list-group-item-action">右へ1マス</button>
+              <button type="button" class="list-group-item list-group-item-action">下へ1マス</button>
+              <button type="button" class="list-group-item list-group-item-action">左へ1マス</button>
+              <button type="button" class="list-group-item list-group-item-action"><del>繰り返し2回</del></button>
+              <button type="button" class="list-group-item list-group-item-action"><del>繰り返し終わり</del></button>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="border border-primary h-100 px-2 mx-n2">
+            <div class="container mt-2">
+              <div class="row">
+                <div class="col-6">
+                  <button id="resetTodos" type="button" class="btn btn-block btn-warning" role="status">リセット</button>
+                </div>
+                <div class="col-6">
+                  <button id="runTodos" type="button" class="btn btn-block btn-success" role="status">実行</button>
+                </div>
+              </div>
+            </div>
+            <ul id="todos" class="list-group my-2 striped">
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6 mt-md-0 col-sm-12 text-center mt-2 position-relative">
+          <canvas id="gameCanvasDisplay"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="my-4">
+
+  <section class="mt-4">
+    <div class="container">
+      <h3>遊び方</h3>
+      <p>
+        命令を選んで実行を押すと、その通りに丸が進みます。丸がゴールまでたどり着いたらクリアです。
+        ステージによっては障害物があるかもしれませんので、うまくかわしてください。また、道中に数字やローマ字がちりばめられているときもあります。
+      </p>
+      <p>
+        例えば4×4マスのステージがあったとして、左下に丸があり、左上がゴールだとします。
+        もちろんシンプルに「右右右上上上」と命令すればゴールできますが、繰り返しを使うともっと少ない命令で目的を達成することができます。
+        このようにすべてのステージをクリアしましたら、より少ない手数でクリアできるかを試してみてください。
+        これがプログラミング的思考です。
+      </p>
+    </div>
+  </section>
+
+  <script src="js/TODO.js"></script>
+  <script src="js/canvas/Field.js"></script>
+  <script src="js/canvas/Ball.js"></script>
+  <script src="js/canvas/Modal.js"></script>
+  <script src="js/index.js"></script>
+</body>
+
+</html>
