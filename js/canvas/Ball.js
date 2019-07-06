@@ -46,13 +46,13 @@ class Ball {
   // following method is related to field class //
   drawBallOn(field) {
     ctx.beginPath();
-    ctx.fillStyle = this.color;
     const rowScale = canvas.height / field.row;
     const colScale = canvas.width / field.column;
     const centerOfBall = {
       x: this.posX * colScale + colScale / 2,
       y: this.posY * rowScale + rowScale / 2
     }
+    ctx.fillStyle = this.color;
     ctx.arc(centerOfBall.x, centerOfBall.y, this.r, 0, Math.PI * 2, false);
     ctx.fill();
     ctx.strokeStyle = this.strokeColor;

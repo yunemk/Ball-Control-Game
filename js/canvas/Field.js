@@ -9,7 +9,7 @@ class Field {
 
   drawFieldLines() {
     ctx.beginPath();
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = 'lightgray';
     for (let c = 0; c < this.column; c++) {
       const lineX = Math.floor(c * canvas.width / this.column);
       ctx.fillRect(lineX, 0, 1, canvas.height);
@@ -35,24 +35,22 @@ class Field {
   }
 
   setBlockStatus(x, y, color) {
-    if (color === 'black' || color === 'white' || color === 'magenta' || color === 'gold' || color === 'olive') {
-      this.blockStatus[x][y] = color;
-    } else if (color === 0) {
+    if (color === 'black' || color === 0) {
       this.blockStatus[x][y] = 'black';
-    } else if (color === 1) {
-      this.blockStatus[x][y] = 'white'
-    } else if (color === 2) {
+    } else if (color === 'white' || color === 1) {
+      this.blockStatus[x][y] = 'white';
+    } else if (color === 'magenta' || color === 2) {
       this.blockStatus[x][y] = 'magenta';
-    } else if (color === 3) {
-      this.blockStatus[x][y] = 'gold'; // If ball is on gold block, then ball is going to warp to olive block
-    } else if (color === 4) {
+    } else if (color === 'gold' || color === 3) {
+      this.blockStatus[x][y] = 'gold';
+    } else if (color === 'olive' || color === 4) {
       this.blockStatus[x][y] = 'olive';
       this.specialBlock.olive = {
         x: x,
         y: y
       };
     } else {
-      console.error(`color is not black, white, magenta or string (passed color is set to ${color})`);
+      console.error(`Passed color is set to ${color}`);
     }
   }
 }
