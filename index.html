@@ -8,8 +8,8 @@
   <title>小学生用プログラミングWebアプリ</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <style>
-    .striped li:nth-child(even) {
-      background: #f5f5f5;
+    .even-striped li:nth-child(even) {
+      background: #f8f9fa;
     }
   </style>
 </head>
@@ -48,17 +48,7 @@
         </div>
         <div class="col-md-3 col-sm-6">
           <div class="border border-primary h-100 px-2 mx-n2">
-            <div class="container mt-2">
-              <div class="row">
-                <div class="col-6">
-                  <button id="resetTodos" type="button" class="btn btn-block btn-warning" role="status">リセット</button>
-                </div>
-                <div class="col-6">
-                  <button id="runTodos" type="button" class="btn btn-block btn-success" role="status">実行</button>
-                </div>
-              </div>
-            </div>
-            <ul id="todos" class="list-group my-2 striped">
+            <ul id="todos" class="list-group mt-2 even-striped">
               <li class="list-group-item empty">&ThinSpace;</li>
               <li class="list-group-item empty">&ThinSpace;</li>
               <li class="list-group-item empty">&ThinSpace;</li>
@@ -70,10 +60,46 @@
               <li class="list-group-item empty">&ThinSpace;</li>
               <li class="list-group-item empty">&ThinSpace;</li>
             </ul>
+            <div class="container my-2">
+              <div class="row">
+                <div class="col-xl-6 col-12">
+                  <button id="resetTodos" type="button" class="btn btn-block btn-warning" role="status">リセット</button>
+                </div>
+                <div class="col-xl-6 mt-xl-0 col-12 mt-2">
+                  <button id="runTodos" type="button" class="btn btn-block btn-success" role="status">実行</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-md-6 mt-md-0 col-sm-12 text-center mt-2 position-relative">
           <canvas id="gameCanvasDisplay"></canvas>
+        </div>
+      </div>
+
+      <h2 class="text-center mt-4">ステージ選択</h2>
+      <div class="row text-center">
+        <div id="stage-list" class="col-12">
+          <ul class="list-group list-group-horizontal">
+            <li class="list-group-item list-group-item-action">ステージ-1</li>
+            <li class="list-group-item list-group-item-action">ステージ-2</li>
+            <li class="list-group-item list-group-item-action">ステージ-3</li>
+          </ul>
+          <ul class="list-group list-group-horizontal">
+            <li class="list-group-item list-group-item-action">ステージ-4</li>
+            <li class="list-group-item list-group-item-action">ステージ-5</li>
+            <li class="list-group-item list-group-item-action">ステージ-6</li>
+          </ul>
+          <ul class="list-group list-group-horizontal">
+            <li class="list-group-item list-group-item-action">ステージ-7</li>
+            <li class="list-group-item list-group-item-action">ステージ-8</li>
+            <li class="list-group-item list-group-item-action">ステージ-9</li>
+          </ul>
+          <ul class="list-group list-group-horizontal">
+            <li class="list-group-item list-group-item-action">ステージ-10</li>
+            <li class="list-group-item list-group-item-action">ステージ-11</li>
+            <li class="list-group-item list-group-item-action">ステージ-12</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -98,6 +124,7 @@
   </section>
 
   <script src="js/TODO.js"></script>
+  <script src="js/Stage.js"></script>
   <script src="js/canvas/Field.js"></script>
   <script src="js/canvas/Ball.js"></script>
   <script src="js/canvas/Modal.js"></script>

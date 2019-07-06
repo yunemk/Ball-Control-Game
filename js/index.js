@@ -1,99 +1,35 @@
 'use strict';
-/* 
-  // Fix List //
-  index.js -> fetch data
-  runTodos button controls
-
-  // useful command //
-  Random magenta block command:
-  field.setBlockStatus(Math.floor(Math.random() * (field.column - 4) + 2), Math.floor(Math.random() * (field.row - 4) + 2), 'magenta');
-*/
 
 const canvas = document.getElementById('gameCanvasDisplay');
 const ctx = canvas.getContext('2d');
 
 const initCanvasSizeToWidthLengthSquare = (canvas) => {
   const width = canvas.parentElement.clientWidth - 15 * 2; // subtract padding size
-  console.log(width);
-  // const height = canvas.parentElement.clientHeight;
   canvas.width = width;
   canvas.height = width;
 }
 initCanvasSizeToWidthLengthSquare(canvas);
 
-// event handler //
-function handleMouseClickOnActions(e) {
-  TODO.addActionToTodoList(e);
-}
-
-function handleMouseClickOnResetTodos() {
-  TODO.allClear();
-}
-
 // main //
 (async () => {
-  const getData = async (stage) => {
-    const res = await fetch('data/fieldSet.json')
-    return await res.json();
-  }
-
-  const data = await getData();
-  const stage = data.stages[`stage-${2}`];
-  const field = new Field(stage.field.column, stage.field.row);
-  const ball = new Ball(field, stage.ball.initPosX, stage.ball.initPosY);
-  const canvasModal = new CanvasModal();
+  const stage = await Stage.fetchStageData(1);
+  // Initialize
+  let field = new Field(stage.field.column, stage.field.row);
+  let ball = new Ball(field, stage.ball.initPosX, stage.ball.initPosY);
+  let canvasModal = new CanvasModal();
   for (let c = 0; c < stage.field.column; c++) {
     for (let r = 0; r < stage.field.row; r++) {
       field.setBlockStatus(c, r, stage.field.status[r][c]);
     }
   }
-  ball.color = stage.ball.color;
-  ball.strokeColor = stage.ball.strokeColor;
-  canvas.style.background = stage.canvas.background;
+  ball.color = stage.ball.color != null ? stage.ball.color : 'cyan';
+  ball.strokeColor = stage.ball.strokeColor != null ? stage.ball.strokeColor : 'black';
+  canvas.style.background = stage.canvas.background != null ? stage.canvas.background : '#fff';
 
-  document.getElementById('actions').addEventListener('click', handleMouseClickOnActions);
-  document.getElementById('resetTodos').addEventListener('click', handleMouseClickOnResetTodos);
+  document.getElementById('actions').addEventListener('click', TODO.handleMouseClickOnActions);
+  document.getElementById('resetTodos').addEventListener('click', TODO.handleMouseClickOnResetTodos);
 
-  // runTodos handler //
-  const handleMouseClickOnRunTodos = {
-    field,
-    ball,
-    canvasModal,
-    handleEvent: function handleEvent(e) {
-      e.currentTarget.removeEventListener('click', handleMouseClickOnRunTodos);
-      document.getElementById('actions').removeEventListener('click', handleMouseClickOnActions);
-      document.getElementById('resetTodos').removeEventListener('click', handleMouseClickOnResetTodos);
-      // This can't be written by forEach in async => https://qiita.com/frameair/items/e7645066075666a13063
-      (async () => {
-        const todos = TODO.getTodosArr();
-        for (const todo of todos) {
-          switch (todo) {
-            case '上へ1マス':
-              await this.ball.moveSmooth(0, -1, 70);
-              break;
-            case '右へ1マス':
-              await this.ball.moveSmooth(1, 0, 70);
-              break;
-            case '下へ1マス':
-              await this.ball.moveSmooth(0, 1, 70);
-              break;
-            case '左へ1マス':
-              await this.ball.moveSmooth(-1, 0, 70);
-              break;
-          }
-          if (this.ball.isOnBlock('black', this.field)) {
-            canvasModal.show('error', this.ball, this);
-            todos.splice(0, todos.length);
-          }
-        }
-        if (this.ball.isOnBlock('white', this.field)) {
-          canvasModal.show('failed', this.ball, this);
-        } else if (this.ball.isOnBlock('magenta', this.field)) {
-          canvasModal.show('clear', this.ball, this);
-        }
-      })();
-    }
-  }
+  let handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal);
   document.getElementById('runTodos').addEventListener('click', handleMouseClickOnRunTodos);
 
   function draw(field, ball) {
@@ -102,5 +38,35 @@ function handleMouseClickOnResetTodos() {
     field.drawBlock();
     ball.drawBallOn(field);
   }
-  setInterval(draw, 10, field, ball);
+  let curScreen = setInterval(draw, 10, field, ball);
+
+  document.getElementById('stage-list').addEventListener('click', async (e) => {
+    const stageNum = Stage.getNum(e);
+    const stage = await Stage.fetchStageData(stageNum);
+    if (stage != null) {
+      field = new Field(stage.field.column, stage.field.row);
+      ball = new Ball(field, stage.ball.initPosX, stage.ball.initPosY);
+      canvasModal = new CanvasModal();
+      for (let c = 0; c < stage.field.column; c++) {
+        for (let r = 0; r < stage.field.row; r++) {
+          field.setBlockStatus(c, r, stage.field.status[r][c]);
+        }
+      }
+      ball.color = stage.ball.color != null ? stage.ball.color : 'cyan';
+      ball.strokeColor = stage.ball.strokeColor != null ? stage.ball.strokeColor : 'black';
+      canvas.style.background = stage.canvas.background != null ? stage.canvas.background : '#fff';
+      if (document.getElementById('canvasModal') !== null) {
+        document.getElementById('canvasModal').remove();
+        document.getElementById('actions').addEventListener('click', TODO.handleMouseClickOnActions);
+        document.getElementById('resetTodos').addEventListener('click', TODO.handleMouseClickOnResetTodos);
+      }
+
+      document.getElementById('runTodos').removeEventListener('click', handleMouseClickOnRunTodos);
+      handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal);
+      document.getElementById('runTodos').addEventListener('click', handleMouseClickOnRunTodos);
+
+      clearInterval(curScreen);
+      curScreen = setInterval(draw, 10, field, ball);
+    }
+  });
 })();

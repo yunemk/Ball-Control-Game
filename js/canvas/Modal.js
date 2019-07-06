@@ -14,6 +14,7 @@ class CanvasModal {
         <button class="btn btn-danger btn-sm mt-4 delModal">リセットする</button>
       </div>
     `;
+    modal.id = 'canvasModal';
     modal.classList.add('text-center', 'position-absolute', 'fixed-top');
     modal.style.width = `${canvas.width}px`;
     modal.style.height = `${canvas.height}px`;
@@ -22,8 +23,8 @@ class CanvasModal {
     modal.style.background = `${mStyles.bg}`;
     modal.querySelector('.delModal').addEventListener('click', () => {
       modal.remove();
-      document.getElementById('actions').addEventListener('click', handleMouseClickOnActions);
-      document.getElementById('resetTodos').addEventListener('click', handleMouseClickOnResetTodos);
+      document.getElementById('actions').addEventListener('click', TODO.handleMouseClickOnActions);
+      document.getElementById('resetTodos').addEventListener('click', TODO.handleMouseClickOnResetTodos);
       document.getElementById('runTodos').addEventListener('click', runTodoEvent);
       ball.resetPos();
     });

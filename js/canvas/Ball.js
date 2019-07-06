@@ -43,16 +43,7 @@ class Ball {
     }
   }
 
-  // following methods are related to field class //
-  isOnBlock(status, field) {
-    if (status === 'black' || status === 'white' || status === 'magenta') {
-      return field.blockStatus[this.posX][this.posY] === status ? true : false;
-    } else {
-      console.error(`passed status (${status}) is not black, white, magenta or string`);
-      return false;
-    }
-  }
-
+  // following method is related to field class //
   drawBallOn(field) {
     ctx.beginPath();
     ctx.fillStyle = this.color;
