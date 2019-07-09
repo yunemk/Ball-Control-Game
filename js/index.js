@@ -26,10 +26,28 @@ initCanvasSizeToWidthLengthSquare(canvas);
   ball.strokeColor = stage.ball.strokeColor != null ? stage.ball.strokeColor : 'black';
   canvas.style.background = stage.canvas.background != null ? stage.canvas.background : '#fff';
 
-  document.getElementById('actions').addEventListener('click', TODO.handleMouseClickOnActions);
-  document.getElementById('resetTodos').addEventListener('click', TODO.handleMouseClickOnResetTodos);
+  // Will Change Code If Pagination Implement //
+  Array.from(document.getElementById('actions').children).forEach((btn, index) => {
+    if (index === 0) {
+      btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.up;
+    } else if (index === 1) {
+      btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.right;
+    } else if (index === 2) {
+      btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.down;
+    } else if (index === 3) {
+      btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.left;
+    } else if (index === 4) {
+      btn.lastElementChild.textContent = stage.actionsBadgeNum.for.start;
+    } else if (index === 5) {
+      btn.lastElementChild.textContent = stage.actionsBadgeNum.for.end;
+    }
+  });
+  // ---------------- //
 
-  let handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal);
+  document.getElementById('actions').addEventListener('click', TODO.handleMouseClickOnActions);
+  let handleMouseClickOnResetTodos = TODO.handleMouseClickOnResetTodos(stage);
+  document.getElementById('resetTodos').addEventListener('click', handleMouseClickOnResetTodos);
+  let handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal, handleMouseClickOnResetTodos);
   document.getElementById('runTodos').addEventListener('click', handleMouseClickOnRunTodos);
 
   function draw(field, ball) {
@@ -55,14 +73,34 @@ initCanvasSizeToWidthLengthSquare(canvas);
       ball.color = stage.ball.color != null ? stage.ball.color : 'cyan';
       ball.strokeColor = stage.ball.strokeColor != null ? stage.ball.strokeColor : 'black';
       canvas.style.background = stage.canvas.background != null ? stage.canvas.background : '#fff';
+
+      // Will Change Code If Pagination Implement //
+      Array.from(document.getElementById('actions').children).forEach((btn, index) => {
+        if (index === 0) {
+          btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.up;
+        } else if (index === 1) {
+          btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.right;
+        } else if (index === 2) {
+          btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.down;
+        } else if (index === 3) {
+          btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.left;
+        } else if (index === 4) {
+          btn.lastElementChild.textContent = stage.actionsBadgeNum.for.start;
+        } else if (index === 5) {
+          btn.lastElementChild.textContent = stage.actionsBadgeNum.for.end;
+        }
+      });
+      // ---------------- //
+
       if (document.getElementById('canvasModal') !== null) {
         document.getElementById('canvasModal').remove();
         document.getElementById('actions').addEventListener('click', TODO.handleMouseClickOnActions);
-        document.getElementById('resetTodos').addEventListener('click', TODO.handleMouseClickOnResetTodos);
+        handleMouseClickOnResetTodos = TODO.handleMouseClickOnResetTodos(stage);
+        document.getElementById('resetTodos').addEventListener('click', handleMouseClickOnResetTodos);
       }
 
       document.getElementById('runTodos').removeEventListener('click', handleMouseClickOnRunTodos);
-      handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal);
+      handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal, handleMouseClickOnResetTodos);
       document.getElementById('runTodos').addEventListener('click', handleMouseClickOnRunTodos);
 
       clearInterval(curScreen);

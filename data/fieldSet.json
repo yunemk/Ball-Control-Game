@@ -23,6 +23,18 @@
       },
       "canvas": {
         "background": "#fff"
+      },
+      "actionsBadgeNum": {
+        "dir": {
+          "up": 5,
+          "right": 5,
+          "down": 5,
+          "left": 5
+        },
+        "for": {
+          "start": 0,
+          "end": 0
+        }
       }
     },
     "stage-2": {
@@ -52,6 +64,18 @@
       },
       "canvas": {
         "background": "#fff"
+      },
+      "actionsBadgeNum": {
+        "dir": {
+          "up": 5,
+          "right": 5,
+          "down": 8,
+          "left": 8
+        },
+        "for": {
+          "start": 0,
+          "end": 0
+        }
       }
     },
     "stage-3": {
@@ -77,6 +101,18 @@
       },
       "canvas": {
         "background": "#fff"
+      },
+      "actionsBadgeNum": {
+        "dir": {
+          "up": 5,
+          "right": 5,
+          "down": 5,
+          "left": 5
+        },
+        "for": {
+          "start": 0,
+          "end": 0
+        }
       }
     },
     "stage-4": {
@@ -101,6 +137,18 @@
       },
       "canvas": {
         "background": "#fff"
+      },
+      "actionsBadgeNum": {
+        "dir": {
+          "up": 5,
+          "right": 5,
+          "down": 5,
+          "left": 5
+        },
+        "for": {
+          "start": 0,
+          "end": 0
+        }
       }
     },
     "stage-5": {
@@ -133,6 +181,18 @@
       },
       "canvas": {
         "background": "#fff"
+      },
+      "actionsBadgeNum": {
+        "dir": {
+          "up": 5,
+          "right": 5,
+          "down": 5,
+          "left": 5
+        },
+        "for": {
+          "start": 0,
+          "end": 0
+        }
       }
     },
     "stage-6": {
@@ -154,6 +214,18 @@
       },
       "canvas": {
         "background": "#fff"
+      },
+      "actionsBadgeNum": {
+        "dir": {
+          "up": 4,
+          "right": 0,
+          "down": 0,
+          "left": 0
+        },
+        "for": {
+          "start": 0,
+          "end": 0
+        }
       }
     },
     "stage-12": {
@@ -195,6 +267,18 @@
       },
       "canvas": {
         "background": "#fff"
+      },
+      "actionsBadgeNum": {
+        "dir": {
+          "up": 100,
+          "right": 100,
+          "down": 100,
+          "left": 100
+        },
+        "for": {
+          "start": 100,
+          "end": 100
+        }
       }
     }
   }
