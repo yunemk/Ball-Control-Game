@@ -74,6 +74,11 @@ initCanvasSizeToWidthLengthSquare(canvas);
       ball.strokeColor = stage.ball.strokeColor != null ? stage.ball.strokeColor : 'black';
       canvas.style.background = stage.canvas.background != null ? stage.canvas.background : '#fff';
 
+      const todos = Array.from(document.getElementById('todos').children);
+      todos.forEach(el => {
+        el.classList.replace('not-empty', 'empty');
+        el.innerHTML = '&ThinSpace;';
+      });
       // Will Change Code If Pagination Implement //
       Array.from(document.getElementById('actions').children).forEach((btn, index) => {
         if (index === 0) {
