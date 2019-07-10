@@ -1,9 +1,9 @@
 class Field {
-  constructor(column = 12, row = 12) {
-    this.column = column;
-    this.row = row;
-    // {column}x{row} array (each element has status)
-    this.blockStatus = (new Array(column)).fill().map(() => (new Array(row)).fill('white'));
+  constructor(fieldData) {
+    this.column = fieldData.column != null ? fieldData.column : 12;
+    this.row = fieldData.row != null ? fieldData.row : 12;
+    // {column}x{row} array (each element has 'white' status)
+    this.blockStatus = (new Array(this.column)).fill().map(() => (new Array(this.row)).fill('white'));
     this.specialBlock = {};
   }
 

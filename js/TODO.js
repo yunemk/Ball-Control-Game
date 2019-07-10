@@ -1,4 +1,39 @@
 class TODO {
+  static switchActions(actionsBadgeNum) {
+    return {
+      actionsBadgeNum,
+      handleEvent: (e) => {
+        if (e.target.nodeName === 'BUTTON') {
+          Array.from(document.getElementById('actionsSelector').children).forEach(btn => {
+            btn.classList.remove('active');
+          })
+          e.target.classList.add('active');
+          const num = parseInt(e.target.textContent);
+          document.getElementById('actions').innerHTML = `
+            <button type="button" class="list-group-item list-group-item-action">
+              上へ${num}マス<span class="badge badge-pill badge-primary float-right">${actionsBadgeNum.dir.up[num - 1]}</span>
+            </button>
+            <button type="button" class="list-group-item list-group-item-action">
+              右へ${num}マス<span class="badge badge-pill badge-primary float-right">${actionsBadgeNum.dir.right[num - 1]}</span>
+            </button>
+            <button type="button" class="list-group-item list-group-item-action">
+              下へ${num}マス<span class="badge badge-pill badge-primary float-right">${actionsBadgeNum.dir.down[num - 1]}</span>
+            </button>
+            <button type="button" class="list-group-item list-group-item-action">
+              左へ${num}マス<span class="badge badge-pill badge-primary float-right">${actionsBadgeNum.dir.left[num - 1]}</span>
+            </button>
+            <button type="button" class="list-group-item list-group-item-action">
+              繰り返し${num + 1}回<span class="badge badge-pill badge-primary float-right">${actionsBadgeNum.for.start[num - 1]}</span>
+            </button>
+            <button type="button" class="list-group-item list-group-item-action">
+              繰り返し終わり<span class="badge badge-pill badge-primary float-right">${actionsBadgeNum.for.end}</span>
+            </button>
+          `;
+        }
+      }
+    };
+  }
+
   static handleMouseClickOnActions(e) {
     if (e.target.nodeName === 'BUTTON') {
       const btn = e.target;
@@ -35,9 +70,30 @@ class TODO {
           el.classList.replace('not-empty', 'empty');
           el.innerHTML = '&ThinSpace;';
         });
-        TODO.resetActionsBadgeNumber(stage);
+        TODO.resetActionsBadgeNumber(stage.actionsBadgeNum);
       }
     };
+  }
+
+  static resetActionsBadgeNumber(badgeNum) {
+    const stgNumStr = Array.from(document.getElementById('actionsSelector').children)
+      .find(el => el.classList.contains('active')).textContent;
+    const stgNum = parseInt(stgNumStr) - 1; // Array counting
+    Array.from(document.getElementById('actions').children).forEach((btn, index) => {
+      if (index === 0) {
+        btn.lastElementChild.textContent = badgeNum.dir.up[stgNum];
+      } else if (index === 1) {
+        btn.lastElementChild.textContent = badgeNum.dir.right[stgNum];
+      } else if (index === 2) {
+        btn.lastElementChild.textContent = badgeNum.dir.down[stgNum];
+      } else if (index === 3) {
+        btn.lastElementChild.textContent = badgeNum.dir.left[stgNum];
+      } else if (index === 4) {
+        btn.lastElementChild.textContent = badgeNum.for.start[stgNum];
+      } else if (index === 5) {
+        btn.lastElementChild.textContent = badgeNum.for.end;
+      }
+    });
   }
 
   static getTodosArr() {
@@ -60,32 +116,30 @@ class TODO {
         (async () => {
           const todos = TODO.getTodosArr();
           for (const todo of todos) {
-            switch (todo) {
-              case '上へ1マス':
-                await this.ball.moveSmooth(0, -1, 70);
-                break;
-              case '右へ1マス':
-                await this.ball.moveSmooth(1, 0, 70);
-                break;
-              case '下へ1マス':
-                await this.ball.moveSmooth(0, 1, 70);
-                break;
-              case '左へ1マス':
-                await this.ball.moveSmooth(-1, 0, 70);
-                break;
+            await TODO.moveBallSmooth(todo, this.ball);
+            let blockStatus;
+            if (this.ball.posX >= 0 && this.ball.posY >= 0 && this.ball.posX < this.field.column && this.ball.posY < this.field.row) {
+              blockStatus = this.field.blockStatus[this.ball.posX][this.ball.posY];
+            } else {
+              blockStatus = 'none';
             }
-            if (this.field.blockStatus[ball.posX][ball.posY] === 'black') {
+            if (blockStatus === 'black' || blockStatus === 'none') {
               canvasModal.show('error', this.ball, this, this.handleMouseClickOnResetTodos);
               todos.splice(0, todos.length);
-            }
-            if (this.field.blockStatus[ball.posX][ball.posY] === 'gold') {
+            } else if (blockStatus === 'gold') {
               this.ball.posX = this.field.specialBlock.olive.x;
               this.ball.posY = this.field.specialBlock.olive.y;
             }
           }
-          if (this.field.blockStatus[ball.posX][ball.posY] === 'white' || this.field.blockStatus[ball.posX][ball.posY] === 'olive') {
+          let blockStatus;
+          if (this.ball.posX >= 0 && this.ball.posY >= 0 && this.ball.posX < this.field.column && this.ball.posY < this.field.row) {
+            blockStatus = this.field.blockStatus[this.ball.posX][this.ball.posY];
+          } else {
+            blockStatus = 'none';
+          }
+          if (blockStatus === 'white' || blockStatus === 'olive') {
             canvasModal.show('failed', this.ball, this, this.handleMouseClickOnResetTodos);
-          } else if (this.field.blockStatus[ball.posX][ball.posY] === 'magenta') {
+          } else if (blockStatus === 'magenta') {
             canvasModal.show('clear', this.ball, this, this.handleMouseClickOnResetTodos);
           }
         })();
@@ -93,21 +147,44 @@ class TODO {
     }
   }
 
-  static resetActionsBadgeNumber(stage) {
-    Array.from(document.getElementById('actions').children).forEach((btn, index) => {
-      if (index === 0) {
-        btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.up;
-      } else if (index === 1) {
-        btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.right;
-      } else if (index === 2) {
-        btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.down;
-      } else if (index === 3) {
-        btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.left;
-      } else if (index === 4) {
-        btn.lastElementChild.textContent = stage.actionsBadgeNum.for.start;
-      } else if (index === 5) {
-        btn.lastElementChild.textContent = stage.actionsBadgeNum.for.end;
-      }
-    });
+  static async moveBallSmooth(todo, ball) {
+    switch (todo) {
+      case '上へ1マス':
+        await ball.moveSmooth(0, -1, 70);
+        break;
+      case '右へ1マス':
+        await ball.moveSmooth(1, 0, 70);
+        break;
+      case '下へ1マス':
+        await ball.moveSmooth(0, 1, 70);
+        break;
+      case '左へ1マス':
+        await ball.moveSmooth(-1, 0, 70);
+        break;
+      case '上へ2マス':
+        await ball.moveSmooth(0, -2, 70);
+        break;
+      case '右へ2マス':
+        await ball.moveSmooth(2, 0, 70);
+        break;
+      case '下へ2マス':
+        await ball.moveSmooth(0, 2, 70);
+        break;
+      case '左へ2マス':
+        await ball.moveSmooth(-2, 0, 70);
+        break;
+      case '上へ3マス':
+        await ball.moveSmooth(0, -3, 70);
+        break;
+      case '右へ3マス':
+        await ball.moveSmooth(3, 0, 70);
+        break;
+      case '下へ3マス':
+        await ball.moveSmooth(0, 3, 70);
+        break;
+      case '左へ3マス':
+        await ball.moveSmooth(-3, 0, 70);
+        break;
+    }
   }
 }

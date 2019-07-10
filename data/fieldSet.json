@@ -26,13 +26,13 @@
       },
       "actionsBadgeNum": {
         "dir": {
-          "up": 5,
-          "right": 5,
-          "down": 5,
-          "left": 5
+          "up": [5, 0, 0],
+          "right": [5, 0, 0],
+          "down": [5, 0, 0],
+          "left": [5, 0, 0]
         },
         "for": {
-          "start": 0,
+          "start": [0, 0, 0],
           "end": 0
         }
       }
@@ -67,13 +67,13 @@
       },
       "actionsBadgeNum": {
         "dir": {
-          "up": 5,
-          "right": 5,
-          "down": 8,
-          "left": 8
+          "up": [3, 3, 3],
+          "right": [3, 3, 3],
+          "down": [3, 3, 3],
+          "left": [3, 3, 3]
         },
         "for": {
-          "start": 0,
+          "start": [0, 0, 0],
           "end": 0
         }
       }
@@ -104,14 +104,14 @@
       },
       "actionsBadgeNum": {
         "dir": {
-          "up": 5,
-          "right": 5,
-          "down": 5,
-          "left": 5
+          "up": [3, 3, 3],
+          "right": [3, 3, 3],
+          "down": [3, 3, 3],
+          "left": [3, 3, 3]
         },
         "for": {
-          "start": 0,
-          "end": 0
+          "start": [3, 0, 0],
+          "end": 3
         }
       }
     },
@@ -140,14 +140,14 @@
       },
       "actionsBadgeNum": {
         "dir": {
-          "up": 5,
-          "right": 5,
-          "down": 5,
-          "left": 5
+          "up": [3, 3, 3],
+          "right": [3, 3, 3],
+          "down": [3, 3, 3],
+          "left": [3, 3, 3]
         },
         "for": {
-          "start": 0,
-          "end": 0
+          "start": [0, 3, 1],
+          "end": 4
         }
       }
     },
@@ -184,14 +184,14 @@
       },
       "actionsBadgeNum": {
         "dir": {
-          "up": 5,
-          "right": 5,
-          "down": 5,
-          "left": 5
+          "up": [3, 3, 3],
+          "right": [3, 3, 3],
+          "down": [3, 3, 3],
+          "left": [3, 3, 3]
         },
         "for": {
-          "start": 0,
-          "end": 0
+          "start": [2, 2, 0],
+          "end": 4
         }
       }
     },
@@ -217,13 +217,13 @@
       },
       "actionsBadgeNum": {
         "dir": {
-          "up": 4,
-          "right": 0,
-          "down": 0,
-          "left": 0
+          "up": [4, 2, 0],
+          "right": [0, 0, 0],
+          "down": [0, 0, 0],
+          "left": [0, 0, 0]
         },
         "for": {
-          "start": 0,
+          "start": [0, 0, 0],
           "end": 0
         }
       }
@@ -270,14 +270,14 @@
       },
       "actionsBadgeNum": {
         "dir": {
-          "up": 100,
-          "right": 100,
-          "down": 100,
-          "left": 100
+          "up": [100, 100, 100],
+          "right": [100, 100, 100],
+          "down": [100, 100, 100],
+          "left": [100, 100, 100]
         },
         "for": {
-          "start": 100,
-          "end": 100
+          "start": [100, 100, 100],
+          "end": 300
         }
       }
     }

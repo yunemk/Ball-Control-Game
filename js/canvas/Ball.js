@@ -1,9 +1,9 @@
 class Ball {
-  constructor(field, initPosX = 1, initPosY = 1) {
-    this.initPosX = initPosX;
-    this.initPosY = initPosY;
-    this.posX = initPosX;
-    this.posY = initPosY;
+  constructor(field, ballData) {
+    this.initPosX = ballData.initPosX != null ? ballData.initPosX : 1;
+    this.initPosY = ballData.initPosY != null ? ballData.initPosY : 1;
+    this.posX = this.initPosX;
+    this.posY = this.initPosY;
     if (canvas.height / field.row >= canvas.width / field.column) {
       this.r = Math.floor((canvas.width / field.column) / 2) - 4;
     } else {
@@ -11,6 +11,8 @@ class Ball {
     }
     this.color = 'cyan';
     this.strokeColor = 'black';
+    this.color = ballData.color != null ? ballData.color : 'cyan';
+    this.strokeColor = ballData.strokeColor != null ? ballData.strokeColor : 'black';
   }
 
   moveTo(x, y) {

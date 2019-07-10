@@ -14,8 +14,8 @@ initCanvasSizeToWidthLengthSquare(canvas);
 (async () => {
   const stage = await Stage.fetchStageData(1);
   // Initialize
-  let field = new Field(stage.field.column, stage.field.row);
-  let ball = new Ball(field, stage.ball.initPosX, stage.ball.initPosY);
+  let field = new Field(stage.field);
+  let ball = new Ball(field, stage.ball);
   let canvasModal = new CanvasModal();
   for (let c = 0; c < stage.field.column; c++) {
     for (let r = 0; r < stage.field.row; r++) {
@@ -26,24 +26,9 @@ initCanvasSizeToWidthLengthSquare(canvas);
   ball.strokeColor = stage.ball.strokeColor != null ? stage.ball.strokeColor : 'black';
   canvas.style.background = stage.canvas.background != null ? stage.canvas.background : '#fff';
 
-  // Will Change Code If Pagination Implement //
-  Array.from(document.getElementById('actions').children).forEach((btn, index) => {
-    if (index === 0) {
-      btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.up;
-    } else if (index === 1) {
-      btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.right;
-    } else if (index === 2) {
-      btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.down;
-    } else if (index === 3) {
-      btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.left;
-    } else if (index === 4) {
-      btn.lastElementChild.textContent = stage.actionsBadgeNum.for.start;
-    } else if (index === 5) {
-      btn.lastElementChild.textContent = stage.actionsBadgeNum.for.end;
-    }
-  });
-  // ---------------- //
-
+  let switchActionsHandler = TODO.switchActions(stage.actionsBadgeNum);
+  document.getElementById('actionsSelector').addEventListener('click', switchActionsHandler);
+  TODO.resetActionsBadgeNumber(stage.actionsBadgeNum);
   document.getElementById('actions').addEventListener('click', TODO.handleMouseClickOnActions);
   let handleMouseClickOnResetTodos = TODO.handleMouseClickOnResetTodos(stage);
   document.getElementById('resetTodos').addEventListener('click', handleMouseClickOnResetTodos);
@@ -62,16 +47,14 @@ initCanvasSizeToWidthLengthSquare(canvas);
     const stageNum = Stage.getNum(e);
     const stage = await Stage.fetchStageData(stageNum);
     if (stage != null) {
-      field = new Field(stage.field.column, stage.field.row);
-      ball = new Ball(field, stage.ball.initPosX, stage.ball.initPosY);
+      field = new Field(stage.field);
+      ball = new Ball(field, stage.ball);
       canvasModal = new CanvasModal();
       for (let c = 0; c < stage.field.column; c++) {
         for (let r = 0; r < stage.field.row; r++) {
           field.setBlockStatus(c, r, stage.field.status[r][c]);
         }
       }
-      ball.color = stage.ball.color != null ? stage.ball.color : 'cyan';
-      ball.strokeColor = stage.ball.strokeColor != null ? stage.ball.strokeColor : 'black';
       canvas.style.background = stage.canvas.background != null ? stage.canvas.background : '#fff';
 
       const todos = Array.from(document.getElementById('todos').children);
@@ -79,30 +62,20 @@ initCanvasSizeToWidthLengthSquare(canvas);
         el.classList.replace('not-empty', 'empty');
         el.innerHTML = '&ThinSpace;';
       });
-      // Will Change Code If Pagination Implement //
-      Array.from(document.getElementById('actions').children).forEach((btn, index) => {
-        if (index === 0) {
-          btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.up;
-        } else if (index === 1) {
-          btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.right;
-        } else if (index === 2) {
-          btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.down;
-        } else if (index === 3) {
-          btn.lastElementChild.textContent = stage.actionsBadgeNum.dir.left;
-        } else if (index === 4) {
-          btn.lastElementChild.textContent = stage.actionsBadgeNum.for.start;
-        } else if (index === 5) {
-          btn.lastElementChild.textContent = stage.actionsBadgeNum.for.end;
-        }
-      });
-      // ---------------- //
 
+      TODO.resetActionsBadgeNumber(stage.actionsBadgeNum);
       if (document.getElementById('canvasModal') !== null) {
         document.getElementById('canvasModal').remove();
         document.getElementById('actions').addEventListener('click', TODO.handleMouseClickOnActions);
-        handleMouseClickOnResetTodos = TODO.handleMouseClickOnResetTodos(stage);
-        document.getElementById('resetTodos').addEventListener('click', handleMouseClickOnResetTodos);
       }
+
+      document.getElementById('actionsSelector').removeEventListener('click', switchActionsHandler);
+      switchActionsHandler = TODO.switchActions(stage.actionsBadgeNum);
+      document.getElementById('actionsSelector').addEventListener('click', switchActionsHandler);
+
+      document.getElementById('resetTodos').removeEventListener('click', handleMouseClickOnResetTodos);
+      handleMouseClickOnResetTodos = TODO.handleMouseClickOnResetTodos(stage);
+      document.getElementById('resetTodos').addEventListener('click', handleMouseClickOnResetTodos);
 
       document.getElementById('runTodos').removeEventListener('click', handleMouseClickOnRunTodos);
       handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal, handleMouseClickOnResetTodos);
