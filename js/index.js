@@ -16,22 +16,20 @@ initCanvasSizeToWidthLengthSquare(canvas);
   let ball = new Ball(field, stage.ball);
   let canvasModal = new CanvasModal();
   let actions = new Actions(stage.actionsBadgeNum);
-  for (let c = 0; c < stage.field.column; c++) {
-    for (let r = 0; r < stage.field.row; r++) {
-      field.setBlockStatus(c, r, stage.field.status[r][c]);
-    }
-  }
-  ball.color = stage.ball.color != null ? stage.ball.color : 'cyan';
-  ball.strokeColor = stage.ball.strokeColor != null ? stage.ball.strokeColor : 'black';
-  canvas.style.background = stage.canvas.background != null ? stage.canvas.background : '#fff';
+  canvas.style.background = stage.canvas.background || '#fff';
+  document.getElementById('actionsSelector').addEventListener('click', e => {
+    actions.changeBadgeNum(e);
+    actions.show();
+  });
+  document.getElementById('actions').addEventListener('click', e => {
+    actions.clickHandler(e);
+    actions.show();
+  });
+  document.getElementById('resetTodos').addEventListener('click', () => {
+    actions.resetTodos();
+  });
 
-  let switchActionsHandler = TODO.switchActions(stage.actionsBadgeNum);
-  document.getElementById('actionsSelector').addEventListener('click', switchActionsHandler);
-  TODO.resetActionsBadgeNumber(stage.actionsBadgeNum.dir, stage.actionsBadgeNum.for);
-  document.getElementById('actions').addEventListener('click', TODO.handleMouseClickOnActions);
-  let handleMouseClickOnResetTodos = TODO.handleMouseClickOnResetTodos(stage);
-  document.getElementById('resetTodos').addEventListener('click', handleMouseClickOnResetTodos);
-  let handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal, handleMouseClickOnResetTodos);
+  let handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal, actions.handleMouseClickOnResetTodos);
   document.getElementById('runTodos').addEventListener('click', handleMouseClickOnRunTodos);
 
   function draw(field, ball) {
@@ -48,6 +46,7 @@ initCanvasSizeToWidthLengthSquare(canvas);
     if (stage != null) {
       field = new Field(stage.field);
       ball = new Ball(field, stage.ball);
+      canvasModal = new CanvasModal();
       actions = new Actions(stage.actionsBadgeNum);
       canvas.style.background = stage.canvas.background || '#fff';
       const todos = Array.from(document.getElementById('todos').children);
@@ -56,21 +55,13 @@ initCanvasSizeToWidthLengthSquare(canvas);
         el.innerHTML = '&ThinSpace;';
       });
 
-      TODO.resetActionsBadgeNumber(stage.actionsBadgeNum.dir, stage.actionsBadgeNum.for);
-      if (document.getElementById('canvasModal') !== null) {
+      if (document.getElementById('canvasModal') != null) {
         document.getElementById('canvasModal').remove();
-        document.getElementById('actions').addEventListener('click', e => {
-          actions.clickHandler(e);
-          actions.show();
-        });
-        document.getElementById('resetTodos').addEventListener('click', () => {
-          actions.resetTodos();
-        });
       }
 
-      document.getElementById('runTodos').removeEventListener('click', runTodosHandler);
-      runTodosHandler = runTodos.setRunTodosHandler(field, ball, canvasModal, actions);
-      document.getElementById('runTodos').addEventListener('click', runTodosHandler);
+      document.getElementById('runTodos').removeEventListener('click', handleMouseClickOnRunTodos);
+      handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal, actions.resetTodos);
+      document.getElementById('runTodos').addEventListener('click', handleMouseClickOnRunTodos);
 
       clearInterval(curScreen);
       curScreen = setInterval(draw, 10, field, ball);
