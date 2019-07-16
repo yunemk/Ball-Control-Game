@@ -1,9 +1,9 @@
 class Actions {
   constructor(actionsBadgeNum) {
     this.initDir = actionsBadgeNum.dir;
-    this.initFor = actionsBadgeNum.for;
+    this.initLoop = actionsBadgeNum.loop;
     this.dir = JSON.parse(JSON.stringify(this.initDir));
-    this.for = JSON.parse(JSON.stringify(this.initFor));
+    this.loop = JSON.parse(JSON.stringify(this.initLoop));
     this.selectedBadge = 1;
     this.show();
   }
@@ -24,10 +24,10 @@ class Actions {
         左へ${num}マス<span class="badge badge-pill badge-primary float-right">${this.dir.left[num - 1]}</span>
       </button>
       <button type="button" class="list-group-item list-group-item-action">
-        繰り返し${num + 1}回<span class="badge badge-pill badge-primary float-right">${this.for.start[num - 1]}</span>
+        繰り返し${num + 1}回<span class="badge badge-pill badge-primary float-right">${this.loop.start[num - 1]}</span>
       </button>
       <button type="button" class="list-group-item list-group-item-action">
-        繰り返し終わり<span class="badge badge-pill badge-primary float-right">${this.for.end}</span>
+        繰り返し終わり<span class="badge badge-pill badge-primary float-right">${this.loop.end}</span>
       </button>
     `;
   }
@@ -41,13 +41,11 @@ class Actions {
   }
 
   clickHandler(e) {
-    if (e.target.nodeName === 'BUTTON') {
-      const selectedAction = e.target;
+    if (e.target.nodeName === 'BUTTON' || e.target.nodeName === 'SPAN') {
+      const selectedAction = e.target.nodeName === 'BUTTON' ? e.target : e.target.parentElement;
       const badgeNum = parseInt(selectedAction.lastElementChild.textContent, 10);
-      const todosElement = document.getElementById('todos');
-      const firstEmptyTodo = Array.from(todosElement.children).find(el =>
-        el.classList.contains('empty')
-      );
+      const firstEmptyTodo = Array.from(document.getElementById('todos').children)
+        .find(el => el.classList.contains('empty'));
       if (firstEmptyTodo !== undefined && badgeNum > 0) {
         this.decrementSelectedActionNum(selectedAction.firstChild.textContent.trim());
         firstEmptyTodo.classList.replace('empty', 'not-empty');
@@ -75,15 +73,15 @@ class Actions {
       this.dir.down[this.selectedBadge - 1]--;
     } else if (str === `左へ${this.selectedBadge}マス`) {
       this.dir.left[this.selectedBadge - 1]--;
-    } else if (str === `繰り返し${this.selectedBadge + 1}`) {
-      this.for.start[this.selectedBadge - 1]--;
+    } else if (str === `繰り返し${this.selectedBadge + 1}回`) {
+      this.loop.start[this.selectedBadge - 1]--;
     } else if (str === '繰り返し終わり') {
-      this.for.end--;
+      this.loop.end--;
     }
   }
 
   incrementSelectedActionNum(str) {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 1; i <= 3; i++) {
       if (str === `上へ${i}マス`) {
         this.dir.up[i - 1]++;
       } else if (str === `右へ${i}マス`) {
@@ -93,11 +91,11 @@ class Actions {
       } else if (str === `左へ${i}マス`) {
         this.dir.left[i - 1]++;
       } else if (str === `繰り返し${i + 1}回`) {
-        this.for.start[i - 1]++;
+        this.loop.start[i - 1]++;
       }
     }
     if (str === '繰り返し終わり') {
-      this.for.end++;
+      this.loop.end++;
     }
   }
 
@@ -115,7 +113,7 @@ class Actions {
       el.innerHTML = '&ThinSpace;';
     });
     this.dir = JSON.parse(JSON.stringify(this.initDir));
-    this.for = JSON.parse(JSON.stringify(this.initFor));
+    this.loop = JSON.parse(JSON.stringify(this.initLoop));
     this.show();
   }
 }

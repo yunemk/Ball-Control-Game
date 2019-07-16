@@ -16,11 +16,13 @@ initCanvasSizeToWidthLengthSquare(canvas);
   let ball = new Ball(field, stage.ball);
   let canvasModal = new CanvasModal();
   let actions = new Actions(stage.actionsBadgeNum);
+  let runTodos = new RunTodos();
   canvas.style.background = stage.canvas.background || '#fff';
   document.getElementById('actionsSelector').addEventListener('click', e => {
     actions.changeBadgeNum(e);
     actions.show();
   });
+
   document.getElementById('actions').addEventListener('click', e => {
     actions.clickHandler(e);
     actions.show();
@@ -29,8 +31,8 @@ initCanvasSizeToWidthLengthSquare(canvas);
     actions.resetTodos();
   });
 
-  let handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal, actions.handleMouseClickOnResetTodos);
-  document.getElementById('runTodos').addEventListener('click', handleMouseClickOnRunTodos);
+  let runTodosHandler = runTodos.setRunTodosHandler(field, ball, canvasModal, actions);
+  document.getElementById('runTodos').addEventListener('click', runTodosHandler);
 
   function draw(field, ball) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -46,7 +48,6 @@ initCanvasSizeToWidthLengthSquare(canvas);
     if (stage != null) {
       field = new Field(stage.field);
       ball = new Ball(field, stage.ball);
-      canvasModal = new CanvasModal();
       actions = new Actions(stage.actionsBadgeNum);
       canvas.style.background = stage.canvas.background || '#fff';
       const todos = Array.from(document.getElementById('todos').children);
@@ -57,11 +58,18 @@ initCanvasSizeToWidthLengthSquare(canvas);
 
       if (document.getElementById('canvasModal') != null) {
         document.getElementById('canvasModal').remove();
+        document.getElementById('actions').addEventListener('click', e => {
+          actions.clickHandler(e);
+          actions.show();
+        });
+        document.getElementById('resetTodos').addEventListener('click', () => {
+          actions.resetTodos();
+        });
       }
 
-      document.getElementById('runTodos').removeEventListener('click', handleMouseClickOnRunTodos);
-      handleMouseClickOnRunTodos = TODO.setRunTodosHandler(field, ball, canvasModal, actions.resetTodos);
-      document.getElementById('runTodos').addEventListener('click', handleMouseClickOnRunTodos);
+      document.getElementById('runTodos').removeEventListener('click', runTodosHandler);
+      runTodosHandler = runTodos.setRunTodosHandler(field, ball, canvasModal, actions);
+      document.getElementById('runTodos').addEventListener('click', runTodosHandler);
 
       clearInterval(curScreen);
       curScreen = setInterval(draw, 10, field, ball);
