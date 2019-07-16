@@ -1,11 +1,11 @@
 class CanvasModal {
-  show(style, ball, runTodoEvent, handleMouseClickOnResetTodos) {
+  show(style, ball, runTodoEvent, actions) {
     // ball arguments is needed for delModal button's click event behavior (reset ball position)
-    const modal = this.create(style, ball, handleMouseClickOnResetTodos, runTodoEvent);
+    const modal = this.create(style, ball, actions, runTodoEvent);
     canvas.parentElement.appendChild(modal);
   }
 
-  create(style, ball, handleMouseClickOnResetTodos, runTodoEvent) {
+  create(style, ball, actions, runTodoEvent) {
     const mStyles = this.getStyles(style); // modal styles
     const modal = document.createElement('div');
     modal.innerHTML = `
@@ -23,8 +23,13 @@ class CanvasModal {
     modal.style.background = `${mStyles.bg}`;
     modal.querySelector('.delModal').addEventListener('click', () => {
       modal.remove();
-      document.getElementById('actions').addEventListener('click', TODO.handleMouseClickOnActions);
-      document.getElementById('resetTodos').addEventListener('click', handleMouseClickOnResetTodos);
+      document.getElementById('actions').addEventListener('click', e => {
+        actions.clickHandler(e);
+        actions.show();
+      });
+      document.getElementById('resetTodos').addEventListener('click', () => {
+        actions.resetTodos();
+      })
       document.getElementById('runTodos').addEventListener('click', runTodoEvent);
       ball.resetPos();
     });

@@ -11,8 +11,8 @@ class Ball {
     }
     this.color = 'cyan';
     this.strokeColor = 'black';
-    this.color = ballData.color != null ? ballData.color : 'cyan';
-    this.strokeColor = ballData.strokeColor != null ? ballData.strokeColor : 'black';
+    this.color = ballData.color || 'cyan';
+    this.strokeColor = ballData.strokeColor || 'black';
   }
 
   moveTo(x, y) {

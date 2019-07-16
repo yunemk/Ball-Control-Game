@@ -1,10 +1,15 @@
 class Field {
   constructor(fieldData) {
-    this.column = fieldData.column != null ? fieldData.column : 12;
-    this.row = fieldData.row != null ? fieldData.row : 12;
+    this.column = fieldData.column || 12;
+    this.row = fieldData.row || 12;
     // {column}x{row} array (each element has 'white' status)
     this.blockStatus = (new Array(this.column)).fill().map(() => (new Array(this.row)).fill('white'));
     this.specialBlock = {};
+    for (let c = 0; c < this.column; c++) {
+      for (let r = 0; r < this.row; r++) {
+        this.setBlockStatus(c, r, fieldData.status[r][c]);
+      }
+    }
   }
 
   drawFieldLines() {
@@ -46,8 +51,8 @@ class Field {
     } else if (color === 'olive' || color === 4) {
       this.blockStatus[x][y] = 'olive';
       this.specialBlock.olive = {
-        x: x,
-        y: y
+        x,
+        y
       };
     } else {
       console.error(`Passed color is set to ${color}`);

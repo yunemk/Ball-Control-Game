@@ -4,8 +4,8 @@ class TODO {
       actionsBadgeNum,
       handleEvent: (e) => {
         if (e.target.nodeName === 'BUTTON') {
-          Array.from(document.getElementById('actionsSelector').children).forEach(btn => {
-            btn.classList.remove('active');
+          Array.from(document.getElementById('actionsSelector').children).forEach(actionBtn => {
+            actionBtn.classList.remove('active');
           })
           e.target.classList.add('active');
           const num = parseInt(e.target.textContent);
@@ -36,21 +36,21 @@ class TODO {
 
   static handleMouseClickOnActions(e) {
     if (e.target.nodeName === 'BUTTON') {
-      const btn = e.target;
+      const actionBtn = e.target;
       const todosElement = document.getElementById('todos');
       const firstEmptyTodo = Array.from(todosElement.children)
         .find(el => el.classList.contains('empty'));
-      const badgeNum = parseInt(btn.lastElementChild.textContent, 10);
+      const badgeNum = parseInt(actionBtn.lastElementChild.textContent, 10);
       if (firstEmptyTodo !== undefined && badgeNum > 0) {
-        btn.lastElementChild.textContent = `${badgeNum - 1}`;
+        actionBtn.lastElementChild.textContent = `${badgeNum - 1}`;
         firstEmptyTodo.classList.replace('empty', 'not-empty');
         firstEmptyTodo.innerHTML = `
-        ${btn.firstChild.textContent.trim()}
+        ${actionBtn.firstChild.textContent.trim()}
         <button class="btn btn-sm btn-danger my-n1 rounded-circle float-right delTodo">x</button>
         `;
         const delTodoBtn = firstEmptyTodo.querySelector('.delTodo');
         delTodoBtn.onclick = () => {
-          btn.lastElementChild.textContent = `${parseInt(btn.lastElementChild.textContent, 10) + 1}`;
+          actionBtn.lastElementChild.textContent = `${parseInt(actionBtn.lastElementChild.textContent, 10) + 1}`;
           delTodoBtn.parentElement.remove();
           const storedInvisibleTodo = document.createElement('li');
           storedInvisibleTodo.innerHTML = '&ThinSpace;';
@@ -70,30 +70,22 @@ class TODO {
           el.classList.replace('not-empty', 'empty');
           el.innerHTML = '&ThinSpace;';
         });
-        TODO.resetActionsBadgeNumber(stage.actionsBadgeNum);
+        TODO.resetActionsBadgeNumber(stage.actionsBadgeNum.dir, stage.actionsBadgeNum.for);
       }
     };
   }
 
-  static resetActionsBadgeNumber(badgeNum) {
+  static resetActionsBadgeNumber(badgeNumDir, badgeNumFor) {
     const stgNumStr = Array.from(document.getElementById('actionsSelector').children)
       .find(el => el.classList.contains('active')).textContent;
     const stgNum = parseInt(stgNumStr) - 1; // Array counting
-    Array.from(document.getElementById('actions').children).forEach((btn, index) => {
-      if (index === 0) {
-        btn.lastElementChild.textContent = badgeNum.dir.up[stgNum];
-      } else if (index === 1) {
-        btn.lastElementChild.textContent = badgeNum.dir.right[stgNum];
-      } else if (index === 2) {
-        btn.lastElementChild.textContent = badgeNum.dir.down[stgNum];
-      } else if (index === 3) {
-        btn.lastElementChild.textContent = badgeNum.dir.left[stgNum];
-      } else if (index === 4) {
-        btn.lastElementChild.textContent = badgeNum.for.start[stgNum];
-      } else if (index === 5) {
-        btn.lastElementChild.textContent = badgeNum.for.end;
-      }
-    });
+    const btns = Array.from(document.getElementById('actions').children);
+    btns[0].lastElementChild.textContent = badgeNumDir.up[stgNum];
+    btns[1].lastElementChild.textContent = badgeNumDir.right[stgNum];
+    btns[2].lastElementChild.textContent = badgeNumDir.down[stgNum];
+    btns[3].lastElementChild.textContent = badgeNumDir.left[stgNum];
+    btns[4].lastElementChild.textContent = badgeNumFor.start[stgNum];
+    btns[5].lastElementChild.textContent = badgeNumFor.end;
   }
 
   static getTodosArr(purpose) {
