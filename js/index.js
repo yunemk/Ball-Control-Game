@@ -1,5 +1,8 @@
 const canvas = document.getElementById('gameCanvasDisplay');
 const ctx = canvas.getContext('2d');
+const range = (start, stop, step = 1) => Array.from({
+  length: (stop - start) / step + 1
+}, (_, i) => start + i * step);
 
 const initCanvasSizeToWidthLengthSquare = (canvas) => {
   const width = canvas.parentElement.clientWidth - 15 * 2; // subtract padding size
@@ -50,6 +53,8 @@ initCanvasSizeToWidthLengthSquare(canvas);
       ball = new Ball(field, stage.ball);
       actions = new Actions(stage.actionsBadgeNum);
       canvas.style.background = stage.canvas.background || '#fff';
+      Array.from(document.getElementById('actionsSelector').children).forEach(actionsBtn => actionsBtn.classList.remove('active'));
+      document.getElementById('actionsSelector').children[0].classList.add('active');
       const todos = Array.from(document.getElementById('todos').children);
       todos.forEach(el => {
         el.classList.replace('not-empty', 'empty');

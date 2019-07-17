@@ -3,7 +3,7 @@
 ## 概要
 ボールをゴールに辿り着けるように、決められた動作を正しく並べて実行するゲームです。
 
-[Webページ ![](img/gameDisplay.png)](https://yunemk.github.io/Ball-Controll-Game/)
+[Webページ ![](img/gameDisplay.png)](https://yunemk.github.io/Ball-Control-Game/)
 
 ## 遊び方
 * 左の動作一覧から動きを選択します。
@@ -40,6 +40,18 @@
   },
   "canvas": {
     "background": "画面の背景色: string"
+  },
+  "actionsBadgeNum": {
+    "dir": {
+      "up": ["上へ1マスの回数: number", "2マス", "3マス"],
+      "right": ["右へ1マスの回数: number", "2マス", "3マス"],
+      "down": ["下へ1マスの回数: number", "2マス", "3マス"],
+      "left": ["左へ1マスの回数: number", "2マス", "3マス"]
+    },
+    "loop": {
+      "start": ["繰り返し2回の回数: number", "3回", "4回"],
+      "end": "繰り返し終わりの回数: number"
+    }
   }
 }
 ```
