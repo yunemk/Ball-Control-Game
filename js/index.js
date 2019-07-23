@@ -34,8 +34,9 @@ initCanvasSizeToWidthLengthSquare(canvas);
     actions.resetTodos();
   });
 
-  let runTodosHandler = runTodos.setRunTodosHandler(field, ball, canvasModal, actions);
-  document.getElementById('runTodos').addEventListener('click', runTodosHandler);
+  document.getElementById('runTodos').addEventListener('click', () => {
+    runTodos.runTodosHandler(field, ball, canvasModal, actions);
+  });
 
   function draw(field, ball) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -70,11 +71,10 @@ initCanvasSizeToWidthLengthSquare(canvas);
         document.getElementById('resetTodos').addEventListener('click', () => {
           actions.resetTodos();
         });
+        document.getElementById('runTodos').addEventListener('click', () => {
+          runTodos.runTodosHandler(field, ball, canvasModal, actions);
+        });
       }
-
-      document.getElementById('runTodos').removeEventListener('click', runTodosHandler);
-      runTodosHandler = runTodos.setRunTodosHandler(field, ball, canvasModal, actions);
-      document.getElementById('runTodos').addEventListener('click', runTodosHandler);
 
       clearInterval(curScreen);
       curScreen = setInterval(draw, 10, field, ball);

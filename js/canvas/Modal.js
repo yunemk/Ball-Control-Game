@@ -1,12 +1,11 @@
 class CanvasModal {
-  show(style, ball, runTodoEvent, actions) {
-    // ball arguments is needed for delModal button's click event behavior (reset ball position)
-    const modal = this.create(style, ball, actions, runTodoEvent);
+  show(style, field, ball, canvasModal, actions, runTodos) {
+    const modal = this.create(style, field, ball, canvasModal, actions, runTodos);
     canvas.parentElement.appendChild(modal);
   }
 
-  create(style, ball, actions, runTodoEvent) {
-    const mStyles = this.getStyles(style); // modal styles
+  create(style, field, ball, canvasModal, actions, runTodos) {
+    const mStyles = this.getStyles(style);
     const modal = document.createElement('div');
     modal.innerHTML = `
       <div class="d-flex flex-column h-100 align-items-center justify-content-center">
@@ -19,7 +18,6 @@ class CanvasModal {
     modal.style.width = `${canvas.width}px`;
     modal.style.height = `${canvas.height}px`;
     modal.style.marginLeft = '15px'; // parent col padding (bootstrap setting)
-    // modal.style.background = '#343a407a';
     modal.style.background = `${mStyles.bg}`;
     modal.querySelector('.delModal').addEventListener('click', () => {
       modal.remove();
@@ -29,8 +27,10 @@ class CanvasModal {
       });
       document.getElementById('resetTodos').addEventListener('click', () => {
         actions.resetTodos();
-      })
-      document.getElementById('runTodos').addEventListener('click', runTodoEvent);
+      });
+      document.getElementById('runTodos').addEventListener('click', () => {
+        runTodos.runTodosHandler(field, ball, canvasModal, actions);
+      });
       ball.resetPos();
     });
     return modal;
@@ -50,10 +50,14 @@ class CanvasModal {
       modalStyles.msg = 'クリア！';
       modalStyles.textColor = 'primary';
       modalStyles.bg = '#f5f5f57a';
-    } else if (style === 'error') {
+    } else if (style === 'ballError') {
       modalStyles.msg = 'エラー';
       modalStyles.textColor = 'danger';
       modalStyles.bg = '#846a027a';
+    } else if (style === 'loopError') {
+      modalStyles.msg = '繰り返しが間違っています';
+      modalStyles.textColor = 'warning';
+      modalStyles.bg = '#343a407a';
     } else {
       console.error(`style is not failed, clear, error or string (passed style is ${style})`);
     }
