@@ -1,10 +1,10 @@
 class CanvasModal {
-  show(style, field, ball, canvasModal, actions, runTodos) {
-    const modal = this.create(style, field, ball, canvasModal, actions, runTodos);
+  show(style, field, alphabets, ball, canvasModal, actions, runTodos) {
+    const modal = this.create(style, field, alphabets, ball, canvasModal, actions, runTodos);
     canvas.parentElement.appendChild(modal);
   }
 
-  create(style, field, ball, canvasModal, actions, runTodos) {
+  create(style, field, alphabets, ball, canvasModal, actions, runTodos) {
     const mStyles = this.getStyles(style);
     const modal = document.createElement('div');
     modal.innerHTML = `
@@ -29,9 +29,11 @@ class CanvasModal {
         actions.resetTodos();
       });
       document.getElementById('runTodos').addEventListener('click', () => {
-        runTodos.runTodosHandler(field, ball, canvasModal, actions);
+        runTodos.runTodosHandler(field, alphabets, ball, canvasModal, actions);
       });
       ball.resetPos();
+      alphabets.reset();
+      alphabets.hideCurrentStringAlert();
     });
     return modal;
   }

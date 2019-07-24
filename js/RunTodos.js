@@ -93,12 +93,10 @@ class RunTodos {
             return this.getLoopCompiledTodos(dirEditedTodos, compiledTodos);
           }
         } else {
-          console.error('繰り返し処理が不正です');
           return null;
         }
       }
     }
-    console.error('正しくない値が含まれています');
     return null;
   }
 
@@ -115,7 +113,7 @@ class RunTodos {
     return null;
   }
 
-  runTodosHandler(field, ball, canvasModal, actions) {
+  runTodosHandler(field, alphabets, ball, canvasModal, actions) {
     // Clear event handler
     document.getElementById('actions').outerHTML = document.getElementById('actions').outerHTML;
     document.getElementById('resetTodos').outerHTML = document.getElementById('resetTodos').outerHTML;
@@ -124,25 +122,36 @@ class RunTodos {
       const todos = this.getTodosArr();
       if (todos) {
         // This can't be written by forEach in async => https://qiita.com/frameair/items/e7645066075666a13063
+        ball.isMoving = true;
         for (const todo of todos) {
           await this.moveBallSmooth(todo, ball);
           const blockStatus = this.getBlockStatusOfBallPos(ball, field);
           if (blockStatus === 'black' || blockStatus === 'none') {
-            canvasModal.show('ballError', field, ball, canvasModal, actions, this);
+            canvasModal.show('ballError', field, alphabets, ball, canvasModal, actions, this);
             todos.splice(0, todos.length);
           } else if (blockStatus === 'gold') {
             ball.posX = field.specialBlock.olive.x;
             ball.posY = field.specialBlock.olive.y;
           }
+          alphabets.addToCurrent(ball);
         }
+        ball.isMoving = false;
         const blockStatus = this.getBlockStatusOfBallPos(ball, field);
         if (blockStatus === 'white' || blockStatus === 'olive') {
-          canvasModal.show('failed', field, ball, canvasModal, actions, this);
+          canvasModal.show('failed', field, alphabets, ball, canvasModal, actions, this);
         } else if (blockStatus === 'magenta') {
-          canvasModal.show('clear', field, ball, canvasModal, actions, this);
+          if (alphabets.alphabets !== null) {
+            if (alphabets.isCorrect()) {
+              canvasModal.show('clear', field, alphabets, ball, canvasModal, actions, this);
+            } else {
+              canvasModal.show('failed', field, alphabets, ball, canvasModal, actions, this);
+            }
+          } else {
+            canvasModal.show('clear', field, alphabets, ball, canvasModal, actions, this);
+          }
         }
       } else {
-        canvasModal.show('loopError', field, ball, canvasModal, actions, this);
+        canvasModal.show('loopError', field, alphabets, ball, canvasModal, actions, this);
       }
     })();
   }

@@ -12,8 +12,6 @@
 
 ## 注意点
 * IE では動きません。
-* 繰り返し機能はまだ使えません。
-* 実行中にステージを変更するとバグります。
 
 ---
 ## コンセプト
@@ -41,6 +39,17 @@
   "canvas": {
     "background": "画面の背景色: string"
   },
+  "alphabets": [
+    {
+      "char": "alphabet: string",
+      "x": "alphabetのX座標: number",
+      "y": "alphabetのY座標: number"
+    },
+    {
+      "...": "..."
+    }
+  ]
+  ,
   "actionsBadgeNum": {
     "dir": {
       "up": ["上へ1マスの回数: number", "2マス", "3マス"],
@@ -62,24 +71,21 @@ status: {column}x{row}の2次元配列
   * 3 (gold): ボールが乗ると olive ブロックにワープする (olive ブロックが必要, 1つだけ設定)
   * 4 (olive): gold ブロックに乗ったボールがワープして来る場所 (gold ブロックが必要, 1つだけ設定)
 
+alphabetsの注意点
+* 任意の機能
+* 配列は順番に文字を並べること
+* 黒ブロックの上などには配置しないこと
+
 #### 初期値
 * field.column: 12, field.row: 12
 * field.status: undefined (必須項目です)
 * ball.initPosX: 1, ball.initPosY: 1
 * ball.color: "cyan", ball.strokeColor: "black"
+* alphabets: null
 * canvas.background: "#fff"
 
 ---
 
 ## 実装予定の機能
-* 上下左右それぞれ n マス動く命令 (n = 1, 2, ...)
-* 繰り返し動作
-  * 実装方法: 繰り返し n 回 -> 上下左右に動く動作(複数可) -> 繰り返し終わり (n = 1, 2, ...)
-* 命令の使用回数を制限する
-  * Bootstrap の badge を使用する
-* 数字と演算子を集めて演算する機能
+数字と演算子を集めて演算する機能
   * 実装例: 「答えが3となるようにボールを動かそう」というお題を与えます。フィールドに散りばめられた「1」「2」「3」「+」「=」を「=」が最後となるよう記号を集めていきます。この場合、1+2= か 3= の順で集められるとゲームクリアとなります。
-* フィールドにあるアルファベットを集めて単語を作る (上記と同様に)
-
-## 使用した技術
-Bootstrap, Canvas API

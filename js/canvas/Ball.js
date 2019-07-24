@@ -13,6 +13,7 @@ class Ball {
     this.strokeColor = 'black';
     this.color = ballData.color || 'cyan';
     this.strokeColor = ballData.strokeColor || 'black';
+    this.moving = false;
   }
 
   moveTo(x, y) {
@@ -48,11 +49,9 @@ class Ball {
   // following method is related to field class //
   drawBallOn(field) {
     ctx.beginPath();
-    const rowScale = canvas.height / field.row;
-    const colScale = canvas.width / field.column;
     const centerOfBall = {
-      x: this.posX * colScale + colScale / 2,
-      y: this.posY * rowScale + rowScale / 2
+      x: this.posX * field.colScale + field.colScale / 2,
+      y: this.posY * field.rowScale + field.rowScale / 2
     }
     ctx.fillStyle = this.color;
     ctx.arc(centerOfBall.x, centerOfBall.y, this.r, 0, Math.PI * 2, false);

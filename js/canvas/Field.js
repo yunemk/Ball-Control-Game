@@ -2,6 +2,8 @@ class Field {
   constructor(fieldData) {
     this.column = fieldData.column || 12;
     this.row = fieldData.row || 12;
+    this.rowScale = canvas.height / this.row;
+    this.colScale = canvas.width / this.column;
     // {column}x{row} array (each element has 'white' status)
     this.blockStatus = (new Array(this.column)).fill().map(() => (new Array(this.row)).fill('white'));
     this.specialBlock = {};
