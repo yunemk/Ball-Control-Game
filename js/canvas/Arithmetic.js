@@ -37,7 +37,7 @@ class Arithmetic {
     document.getElementById('arithmetic').innerHTML = `
       お題<br>
       ${this.subject}
-      ${this.current ? `<div class="alert alert-${this.alertBgColor}">${this.current}${this.result !== null ? this.result : ''}</div>` : ''}
+      ${this.current ? `<div class="alert alert-${this.alertBgColor} overflow-wrap-break">${this.current}${this.result !== null ? this.result : ''}</div>` : ''}
     `;
   }
 
@@ -76,7 +76,7 @@ class Arithmetic {
         return false;
       }
     } catch (error) {
-      console.error('Invalid');
+      console.warn(error, `${this.current} is not calculable`);
       return false;
     }
   }
@@ -93,7 +93,7 @@ class Arithmetic {
       }
     }
     if (this.isInvalidFormula(formulaStr)) {
-      console.error('this.current have invalid character. (only number and symbols of \'+\', \'-\', \'*\', \'/\', \'(\' and \')\' are allowed to use)');
+      console.error(`${this}.current have invalid character. (only number and symbols of '+', '-', '*', '/', '(' and ')' are allowed to use)`, formulaStr);
       return null;
     }
     return formulaStr;
@@ -106,7 +106,7 @@ class Arithmetic {
         continue;
       }
       for (const symbol of ['+', '-', '*', '/', '(', ')']) {
-        if (this.current[i] === symbol) {
+        if (formulaStr[i] === symbol) {
           continue strCharItr;
         }
       }

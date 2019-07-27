@@ -30,26 +30,41 @@
     "row": "行(1以上): number",
     "status": ["..."]
   },
+  "alphabets": {
+    "question": "お題: string",
+    "ans": "答え: string",
+    "pos": [{
+        "char": "alphabet: string",
+        "x": "alphabetのX座標: number",
+        "y": "alphabetのY座標: number"
+      },
+      {
+        "...": "..."
+      }
+    ]
+  },
+  "arithmetic": {
+    "subject": "お題: string",
+    "ans": "答え: number",
+    "pos": [{
+        "char": "数もしくは演算子: string",
+        "x": "charのX座標: number",
+        "y": "charのY座標: number"
+      },
+      {
+        "...": "..."
+      }
+    ]
+  },
   "ball": {
-    "initPosX": "初期位置のX座標(0以上_column-1以下): number",
-    "initPosY": "初期位置のY座標(0以上_row-1以下): number",
+    "initPosX": "初期位置のX座標: number",
+    "initPosY": "初期位置のY座標: number",
     "color": "ボールの色: string",
     "strokeColor": "輪郭の色: string"
   },
   "canvas": {
     "background": "画面の背景色: string"
   },
-  "alphabets": [
-    {
-      "char": "alphabet: string",
-      "x": "alphabetのX座標: number",
-      "y": "alphabetのY座標: number"
-    },
-    {
-      "...": "..."
-    }
-  ]
-  ,
   "actionsBadgeNum": {
     "dir": {
       "up": ["上へ1マスの回数: number", "2マス", "3マス"],
@@ -71,10 +86,11 @@ status: {column}x{row}の2次元配列
   * 3 (gold): ボールが乗ると olive ブロックにワープする (olive ブロックが必要, 1つだけ設定)
   * 4 (olive): gold ブロックに乗ったボールがワープして来る場所 (gold ブロックが必要, 1つだけ設定)
 
-alphabetsの注意点
-* 任意の機能
-* 配列は順番に文字を並べること
-* 黒ブロックの上などには配置しないこと
+alphabetsとarithmeticの注意点
+* 任意の機能です。
+* 色ブロックの上には配置したり、重ねて配置しないでください。 (ボールを動かしたときに予想外の結果になる可能性があります。)
+* お題と答えは誤解のないように設定してください。
+* arithmeticは数字か演算子('+', '-', '×', '÷', '(', ')')しか使ってはいけません。
 
 #### 初期値
 * field.column: 12, field.row: 12
@@ -82,10 +98,10 @@ alphabetsの注意点
 * ball.initPosX: 1, ball.initPosY: 1
 * ball.color: "cyan", ball.strokeColor: "black"
 * alphabets: null
+* arithmetic: null
 * canvas.background: "#fff"
 
 ---
 
-## 実装予定の機能
-数字と演算子を集めて演算する機能
-  * 実装例: 「答えが3となるようにボールを動かそう」というお題を与えます。フィールドに散りばめられた「1」「2」「3」「+」「=」を「=」が最後となるよう記号を集めていきます。この場合、1+2= か 3= の順で集められるとゲームクリアとなります。
+## 修正予定
+* canvasの描画を変更する (ボールが動いていなくても10ms毎にcanvasを描画している)
