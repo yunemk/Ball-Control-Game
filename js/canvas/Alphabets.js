@@ -1,30 +1,32 @@
 class Alphabets {
   constructor(field, alphabets) {
-    this.initAlphabets = alphabets || null;
-    this.alphabets = JSON.parse(JSON.stringify(this.initAlphabets));
-    if (this.alphabets) {
+    this.hideCurrentStringAlert();
+    this.reset();
+    if (alphabets) {
+      this.initPos = alphabets.pos;
+      this.pos = JSON.parse(JSON.stringify(this.initPos));
       this.currentString = '';
-      this.fontSize = `${(field.colScale > field.rowScale ? field.rowScale : field.rowScale) - 10}px`;
-      this.finally = '';
-      for (const i of range(0, this.alphabets.length - 1)) {
-        this.finally += this.alphabets[i].char;
-      }
+      this.fontSize = `${(field.colScale > field.rowScale ? field.rowScale : field.rowScale) - 20}px`;
+      this.ans = alphabets.ans;
+      this.question = alphabets.question;
+      this.alertBgColor = 'warning';
+      this.showCurrentStringAlert();
     }
   }
 
   addToCurrent(ball) {
-    if (this.alphabets) {
-      for (const i of range(0, this.alphabets.length - 1)) {
-        if (ball.posX === this.alphabets[i].x && ball.posY === this.alphabets[i].y) {
-          this.currentString += this.alphabets[i].char;
-          this.alphabets = this.alphabets.filter(alphabet => alphabet !== this.alphabets[i]);
+    if (this.pos) {
+      for (const i of range(0, this.pos.length - 1)) {
+        if (ball.posX === this.pos[i].x && ball.posY === this.pos[i].y) {
+          this.currentString += this.pos[i].char;
+          this.pos = this.pos.filter(alphabet => alphabet !== this.pos[i]);
           break;
         }
       }
       if (this.isCorrect()) {
-        this.changeAlertBg('correct')
+        this.alertBgColor = 'info';
       } else {
-        this.changeAlertBg('wrong');
+        this.alertBgColor = 'warning';
       }
       this.showCurrentStringAlert();
     }
@@ -32,17 +34,11 @@ class Alphabets {
 
   showCurrentStringAlert() {
     document.getElementById('alphabets').classList.replace('d-none', 'd-block');
-    document.getElementById('alphabets').innerHTML = this.currentString || '&ThinSpace;';
-  }
-
-  changeAlertBg(style) {
-    if (style === 'correct') {
-      document.getElementById('alphabets').classList.replace('alert-warning', 'alert-info');
-    } else if (style === 'wrong') {
-      document.getElementById('alphabets').classList.replace('alert-info', 'alert-warning');
-    } else {
-      console.error('style should be clear or wrong');
-    }
+    document.getElementById('alphabets').innerHTML = `
+      お題<br>
+      ${this.question}
+      ${this.currentString ? `<div class="alert alert-${this.alertBgColor}">${this.currentString}</div>` : ''}
+    `;
   }
 
   hideCurrentStringAlert() {
@@ -50,23 +46,29 @@ class Alphabets {
   }
 
   isCorrect() {
-    if (this.currentString === this.finally) {
-      return true;
+    if (this.pos) {
+      if (this.currentString === this.ans) {
+        return true;
+      }
+      return false;
     }
-    return false;
+    return true;
   }
 
   reset() {
-    this.alphabets = JSON.parse(JSON.stringify(this.initAlphabets));
-    this.currentString = '';
+    if (this.pos) {
+      this.pos = JSON.parse(JSON.stringify(this.initPos));
+      this.currentString = '';
+      this.showCurrentStringAlert();
+    }
   }
 
   drawOn(field) {
-    if (this.alphabets) {
+    if (this.pos) {
       ctx.fillStyle = '#000';
-      ctx.font = `${this.fontSize} sans-serif`;
-      this.alphabets.forEach(alphabet => {
-        const x = field.colScale * (alphabet.x + .25);
+      ctx.font = `${this.fontSize} 'Impact', sans-serif`;
+      this.pos.forEach(alphabet => {
+        const x = field.colScale * (alphabet.x + .35);
         const y = field.rowScale * (alphabet.y + .75);
         ctx.fillText(alphabet.char, x, y);
       });

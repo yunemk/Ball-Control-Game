@@ -1,15 +1,26 @@
 class CanvasModal {
-  show(style, field, alphabets, ball, canvasModal, actions, runTodos) {
-    const modal = this.create(style, field, alphabets, ball, canvasModal, actions, runTodos);
+  constructor() {
+    this.styles = {
+      msg: '',
+      textColor: '',
+      bg: ''
+    }
+    if (document.getElementById('canvasModal') != null) {
+      document.getElementById('canvasModal').remove();
+    }
+  }
+
+  show(style, field, alphabets, arithmetic, ball, canvasModal, actions, runTodos) {
+    const modal = this.create(style, field, alphabets, arithmetic, ball, canvasModal, actions, runTodos);
     canvas.parentElement.appendChild(modal);
   }
 
-  create(style, field, alphabets, ball, canvasModal, actions, runTodos) {
-    const mStyles = this.getStyles(style);
+  create(style, field, alphabets, arithmetic, ball, canvasModal, actions, runTodos) {
+    this.changeStyles(style);
     const modal = document.createElement('div');
     modal.innerHTML = `
       <div class="d-flex flex-column h-100 align-items-center justify-content-center">
-        <h1 class="text-${mStyles.textColor} font-weight-bold">${mStyles.msg}</h1>
+        <h1 class="text-${this.styles.textColor} font-weight-bold">${this.styles.msg}</h1>
         <button class="btn btn-danger btn-sm mt-4 delModal">リセットする</button>
       </div>
     `;
@@ -18,7 +29,7 @@ class CanvasModal {
     modal.style.width = `${canvas.width}px`;
     modal.style.height = `${canvas.height}px`;
     modal.style.marginLeft = '15px'; // parent col padding (bootstrap setting)
-    modal.style.background = `${mStyles.bg}`;
+    modal.style.background = `${this.styles.bg}`;
     modal.querySelector('.delModal').addEventListener('click', () => {
       modal.remove();
       document.getElementById('actions').addEventListener('click', e => {
@@ -29,40 +40,34 @@ class CanvasModal {
         actions.resetTodos();
       });
       document.getElementById('runTodos').addEventListener('click', () => {
-        runTodos.runTodosHandler(field, alphabets, ball, canvasModal, actions);
+        runTodos.runTodosHandler(field, alphabets, arithmetic, ball, canvasModal, actions);
       });
       ball.resetPos();
       alphabets.reset();
-      alphabets.hideCurrentStringAlert();
+      arithmetic.reset();
     });
     return modal;
   }
 
-  getStyles(style) {
-    const modalStyles = {
-      msg: '',
-      textColor: '',
-      bg: ''
-    }
+  changeStyles(style) {
     if (style === 'failed') {
-      modalStyles.msg = '失敗';
-      modalStyles.textColor = 'warning';
-      modalStyles.bg = '#343a407a';
+      this.styles.msg = '失敗';
+      this.styles.textColor = 'warning';
+      this.styles.bg = '#343a407a';
     } else if (style === 'clear') {
-      modalStyles.msg = 'クリア！';
-      modalStyles.textColor = 'primary';
-      modalStyles.bg = '#f5f5f57a';
+      this.styles.msg = 'クリア！';
+      this.styles.textColor = 'primary';
+      this.styles.bg = '#f5f5f57a';
     } else if (style === 'ballError') {
-      modalStyles.msg = 'エラー';
-      modalStyles.textColor = 'danger';
-      modalStyles.bg = '#846a027a';
+      this.styles.msg = 'エラー';
+      this.styles.textColor = 'danger';
+      this.styles.bg = '#846a027a';
     } else if (style === 'loopError') {
-      modalStyles.msg = '繰り返しが間違っています';
-      modalStyles.textColor = 'warning';
-      modalStyles.bg = '#343a407a';
+      this.styles.msg = '繰り返しが間違っています';
+      this.styles.textColor = 'warning';
+      this.styles.bg = '#343a407a';
     } else {
       console.error(`style is not failed, clear, error or string (passed style is ${style})`);
     }
-    return modalStyles;
   }
 }

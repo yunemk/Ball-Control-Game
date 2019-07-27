@@ -6,6 +6,29 @@ class Actions {
     this.loop = JSON.parse(JSON.stringify(this.initLoop));
     this.selectedBadge = 1;
     this.show();
+    Array.from(document.getElementById('actionsSelector').children).forEach(actionsBtn => actionsBtn.classList.remove('active'));
+    document.getElementById('actionsSelector').children[0].classList.add('active');
+    const todos = Array.from(document.getElementById('todos').children);
+    todos.forEach(el => {
+      el.classList.replace('not-empty', 'empty');
+      el.innerHTML = '&ThinSpace;';
+    });
+
+    // reset event handler
+    document.getElementById('actionsSelector').outerHTML = document.getElementById('actionsSelector').outerHTML;
+    document.getElementById('actions').outerHTML = document.getElementById('actions').outerHTML;
+    document.getElementById('resetTodos').outerHTML = document.getElementById('resetTodos').outerHTML;
+    document.getElementById('actionsSelector').addEventListener('click', e => {
+      this.changeBadgeNum(e);
+      this.show();
+    });
+    document.getElementById('actions').addEventListener('click', e => {
+      this.clickHandler(e);
+      this.show();
+    });
+    document.getElementById('resetTodos').addEventListener('click', () => {
+      this.resetTodos();
+    });
   }
 
   show() {

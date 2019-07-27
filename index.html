@@ -8,6 +8,12 @@
   <title>小学生用プログラミングWebアプリ</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <style>
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      letter-spacing: .06rem;
+      line-height: 1.65rem;
+    }
+
     .even-striped li:nth-child(even) {
       background: #f8f9fa;
     }
@@ -34,7 +40,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3 col-sm-6 text-center">
-          <div class="border border-primary h-100 px-2 mx-2">
+          <div class="border border-primary h-100 px-2 mx-n2">
             <h3 class="mt-2">動作を追加する</h3>
             <div id="actionsSelector" class="btn-group" role="group" aria-label="Basic example">
               <button type="button" class="btn btn-secondary active">1</button>
@@ -61,7 +67,8 @@
                 繰り返し終わり<span class="badge badge-pill badge-primary float-right"></span>
               </button>
             </ul>
-            <div id="alphabets" class="alert alert-warning mt-2 d-none"></div>
+            <div id="alphabets" class="mt-2 d-none"></div>
+            <div id="arithmetic" class="mt-2 d-none"></div>
           </div>
         </div>
         <div class="col-md-3 col-sm-6">
@@ -144,6 +151,7 @@
   <script src="js/Stage.js"></script>
   <script src="js/canvas/Field.js"></script>
   <script src="js/canvas/Alphabets.js"></script>
+  <script src="js/canvas/Arithmetic.js"></script>
   <script src="js/canvas/Ball.js"></script>
   <script src="js/canvas/Modal.js"></script>
   <script src="js/Actions.js"></script>

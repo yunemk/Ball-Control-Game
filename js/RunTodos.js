@@ -113,7 +113,7 @@ class RunTodos {
     return null;
   }
 
-  runTodosHandler(field, alphabets, ball, canvasModal, actions) {
+  runTodosHandler(field, alphabets, arithmetic, ball, canvasModal, actions) {
     // Clear event handler
     document.getElementById('actions').outerHTML = document.getElementById('actions').outerHTML;
     document.getElementById('resetTodos').outerHTML = document.getElementById('resetTodos').outerHTML;
@@ -127,31 +127,28 @@ class RunTodos {
           await this.moveBallSmooth(todo, ball);
           const blockStatus = this.getBlockStatusOfBallPos(ball, field);
           if (blockStatus === 'black' || blockStatus === 'none') {
-            canvasModal.show('ballError', field, alphabets, ball, canvasModal, actions, this);
+            canvasModal.show('ballError', field, alphabets, arithmetic, ball, canvasModal, actions, this);
             todos.splice(0, todos.length);
           } else if (blockStatus === 'gold') {
             ball.posX = field.specialBlock.olive.x;
             ball.posY = field.specialBlock.olive.y;
           }
           alphabets.addToCurrent(ball);
+          arithmetic.addToCurrent(ball);
         }
         ball.isMoving = false;
         const blockStatus = this.getBlockStatusOfBallPos(ball, field);
         if (blockStatus === 'white' || blockStatus === 'olive') {
-          canvasModal.show('failed', field, alphabets, ball, canvasModal, actions, this);
+          canvasModal.show('failed', field, alphabets, arithmetic, ball, canvasModal, actions, this);
         } else if (blockStatus === 'magenta') {
-          if (alphabets.alphabets !== null) {
-            if (alphabets.isCorrect()) {
-              canvasModal.show('clear', field, alphabets, ball, canvasModal, actions, this);
-            } else {
-              canvasModal.show('failed', field, alphabets, ball, canvasModal, actions, this);
-            }
+          if (alphabets.isCorrect() && arithmetic.isCorrect()) {
+            canvasModal.show('clear', field, alphabets, arithmetic, ball, canvasModal, actions, this);
           } else {
-            canvasModal.show('clear', field, alphabets, ball, canvasModal, actions, this);
+            canvasModal.show('failed', field, alphabets, arithmetic, ball, canvasModal, actions, this);
           }
         }
       } else {
-        canvasModal.show('loopError', field, alphabets, ball, canvasModal, actions, this);
+        canvasModal.show('loopError', field, alphabets, arithmetic, ball, canvasModal, actions, this);
       }
     })();
   }
