@@ -121,7 +121,6 @@ class RunTodos {
     (async () => {
       const todos = this.getTodosArr();
       if (todos) {
-        // This can't be written by forEach in async => https://qiita.com/frameair/items/e7645066075666a13063
         ball.isMoving = true;
         for (const todo of todos) {
           await this.moveBallSmooth(todo, ball);
