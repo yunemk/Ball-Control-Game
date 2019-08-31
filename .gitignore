@@ -1,2 +1,4 @@
 .vscode/
 local/
+node_modules/
+dist/

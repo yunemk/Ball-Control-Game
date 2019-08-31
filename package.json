@@ -1,0 +1,25 @@
+{
+  "name": "ball-control-game",
+  "version": "1.0.0",
+  "description": "ボールをプログラミングの感覚で動かして遊ぶゲームです。",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --dir"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yunemk/Ball-Control-Game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yunemk/Ball-Control-Game/issues"
+  },
+  "homepage": "https://github.com/yunemk/Ball-Control-Game#readme",
+  "devDependencies": {
+    "electron": "^6.0.7",
+    "electron-builder": "^21.2.0"
+  }
+}
