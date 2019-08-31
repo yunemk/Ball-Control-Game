@@ -28,11 +28,11 @@
 
 アプリの起動
 
-`electron main`
+`npm run start`
 
-ビルド
+配布可能な形式でパッケージング
 
-`electron-builder [options]`
+`npm run dist:(win/mac)`
 
 ## ステージの情報
 ステージ情報は *src/js/stage.js* に記載しています。

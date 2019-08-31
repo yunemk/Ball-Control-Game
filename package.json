@@ -5,7 +5,17 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --dir"
+    "dist:win": "electron-builder build --win",
+    "dist:mac": "electron-builder build --mac"
+  },
+  "build": {
+    "appId": "com.example.ball",
+    "win": {
+      "target": "portable"
+    },
+    "mac": {
+      "target": "dmg"
+    }
   },
   "repository": {
     "type": "git",
