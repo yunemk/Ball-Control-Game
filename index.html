@@ -36,6 +36,35 @@
   <section id="game">
     <div class="container">
       <div class="row">
+        <div class="col-md-6 mt-md-0 col-sm-12 text-center mt-2 position-relative">
+          <canvas id="gameCanvasDisplay"></canvas>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="border border-primary h-100 px-2 mx-n2">
+            <ul id="todos" class="list-group mt-2 even-striped">
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+              <li class="list-group-item empty">&ThinSpace;</li>
+            </ul>
+            <div class="container my-2">
+              <div class="row">
+                <div class="col-xl-6 col-12">
+                  <button id="resetTodos" type="button" class="btn btn-block btn-warning" role="status">リセット</button>
+                </div>
+                <div class="col-xl-6 mt-xl-0 col-12 mt-2">
+                  <button id="runTodos" type="button" class="btn btn-block btn-success" role="status">実行</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="col-md-3 col-sm-6 text-center">
           <div class="border border-primary h-100 px-2 mx-n2">
             <h3 class="mt-2">動作を追加する</h3>
@@ -68,39 +97,10 @@
             <div id="arithmetic" class="mt-2 d-none"></div>
           </div>
         </div>
-        <div class="col-md-3 col-sm-6">
-          <div class="border border-primary h-100 px-2 mx-n2">
-            <ul id="todos" class="list-group mt-2 even-striped">
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-            </ul>
-            <div class="container my-2">
-              <div class="row">
-                <div class="col-xl-6 col-12">
-                  <button id="resetTodos" type="button" class="btn btn-block btn-warning" role="status">リセット</button>
-                </div>
-                <div class="col-xl-6 mt-xl-0 col-12 mt-2">
-                  <button id="runTodos" type="button" class="btn btn-block btn-success" role="status">実行</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 mt-md-0 col-sm-12 text-center mt-2 position-relative">
-          <canvas id="gameCanvasDisplay"></canvas>
-        </div>
       </div>
 
-      <h2 class="text-center my-4">ステージ選択</h2>
-      <div class="text-center">
+      <h2 class="text-center mt-4">ステージ選択</h2>
+      <div class="text-center mb-4">
         <div id="stage-list">
           <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-action">ステージ-1</li>
