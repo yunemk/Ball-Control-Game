@@ -26,14 +26,14 @@ class Stage {
           },
           "actionsBadgeNum": {
             "dir": {
-              "up": [5, 0, 0],
-              "right": [5, 0, 0],
-              "down": [5, 0, 0],
-              "left": [5, 0, 0]
+              "up": [5, 5, 5],
+              "right": [5, 5, 5],
+              "down": [5, 5, 5],
+              "left": [5, 5, 5]
             },
             "loop": {
-              "start": [0, 0, 0],
-              "end": 0
+              "start": [5, 5, 5],
+              "end": 5
             }
           }
         },

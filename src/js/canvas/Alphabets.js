@@ -35,9 +35,11 @@ class Alphabets {
   showCurrentStringAlert() {
     document.getElementById('alphabets').classList.replace('d-none', 'd-block');
     document.getElementById('alphabets').innerHTML = `
-      お題<br>
-      ${this.question}
-      ${this.currentString ? `<div class="alert alert-${this.alertBgColor}">${this.currentString}</div>` : ''}
+      <h5 class="d-inline-block p-1" style="background: #ffddf799; border-radius: 10px;">ミッション</h5>
+      <div class="d-flex flex-row">
+        <h2 class="mr-3">${this.question}</h2>
+        ${this.currentString ? `<div class="alert alert-${this.alertBgColor} align-items-center mt-n2 mb-n1">${this.currentString}</div>` : ''}
+      </div>
     `;
   }
 

@@ -25,16 +25,12 @@
 </head>
 
 <body class="bg-light">
-  <header class="mt-4">
+  <section id="game" class="my-4">
     <div class="container">
-      <h1>プログラミングアプリ</h1>
-    </div>
-  </header>
-
-  <hr class="my-4">
-
-  <section id="game">
-    <div class="container">
+      <div class="mb-3">
+        <div id="alphabets" class="mt-2 d-none"></div>
+        <div id="arithmetic" class="mt-2 d-none"></div>
+      </div>
       <div class="row">
         <div class="col-md-6 mt-md-0 col-sm-12 text-center mt-2 position-relative">
           <canvas id="gameCanvasDisplay"></canvas>
@@ -93,14 +89,12 @@
                 繰り返し終わり<span class="badge badge-pill badge-primary float-right"></span>
               </button>
             </ul>
-            <div id="alphabets" class="mt-2 d-none"></div>
-            <div id="arithmetic" class="mt-2 d-none"></div>
           </div>
         </div>
       </div>
 
       <h2 class="text-center mt-4">ステージ選択</h2>
-      <div class="text-center mb-4">
+      <div class="text-center">
         <div id="stage-list">
           <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-action">ステージ-1</li>
