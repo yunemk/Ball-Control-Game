@@ -11,7 +11,7 @@ class Actions {
     const todos = Array.from(document.getElementById('todos').children);
     todos.forEach(el => {
       el.classList.replace('not-empty', 'empty');
-      el.innerHTML = '&ThinSpace;';
+      el.innerHTML = '';
     });
 
     // reset event handler
@@ -65,16 +65,17 @@ class Actions {
 
   clickHandler(e) {
     if (e.target.nodeName === 'BUTTON' || e.target.nodeName === 'SPAN') {
-      const selectedAction = e.target.nodeName === 'BUTTON' ? e.target : e.target.parentElement;
-      const badgeNum = parseInt(selectedAction.lastElementChild.textContent, 10);
+      const selectedActionElm = e.target.nodeName === 'BUTTON' ? e.target : e.target.parentElement;
+      const badgeNum = parseInt(selectedActionElm.lastElementChild.textContent, 10);
       const firstEmptyTodo = Array.from(document.getElementById('todos').children)
         .find(el => el.classList.contains('empty'));
       if (firstEmptyTodo !== undefined && badgeNum > 0) {
-        this.decrementSelectedActionNum(selectedAction.firstChild.textContent.trim());
+        const selectedAction = selectedActionElm.firstChild.textContent.trim();
+        this.decrementSelectedActionNum(selectedAction);
         firstEmptyTodo.classList.replace('empty', 'not-empty');
         firstEmptyTodo.innerHTML = `
-          ${selectedAction.firstChild.textContent.trim()}
-          <button class="btn btn-sm btn-danger my-n1 rounded-circle float-right delTodo">x</button>
+          <span class="flex-grow-1 mb-0 ${selectedAction}">${selectedAction}</span>
+          <button class="badge badge-pill badge-danger rounded-circle float-right delTodo">x</button>
         `;
         const delTodoBtn = firstEmptyTodo.querySelector('.delTodo');
         delTodoBtn.onclick = () => {
@@ -124,8 +125,8 @@ class Actions {
 
   storedInvisibleTodo() {
     const storedInvisibleTodo = document.createElement('li');
-    storedInvisibleTodo.innerHTML = '&ThinSpace;';
-    storedInvisibleTodo.classList.add('list-group-item', 'empty');
+    storedInvisibleTodo.innerHTML = '';
+    storedInvisibleTodo.classList.add('list-group-item', 'todos-list-item', 'empty');
     return storedInvisibleTodo;
   }
 
@@ -133,7 +134,7 @@ class Actions {
     const todos = Array.from(document.getElementById('todos').children);
     todos.forEach(el => {
       el.classList.replace('not-empty', 'empty');
-      el.innerHTML = '&ThinSpace;';
+      el.innerHTML = '';
     });
     this.dir = JSON.parse(JSON.stringify(this.initDir));
     this.loop = JSON.parse(JSON.stringify(this.initLoop));

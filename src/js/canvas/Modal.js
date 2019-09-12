@@ -21,14 +21,14 @@ class CanvasModal {
     modal.innerHTML = `
       <div class="d-flex flex-column h-100 align-items-center justify-content-center">
         <h1 class="text-${this.styles.textColor} font-weight-bold">${this.styles.msg}</h1>
-        <button class="btn btn-danger btn-sm mt-4 delModal">リセットする</button>
+        <button class="btn btn-danger btn-lg mt-4 delModal">リセットする</button>
       </div>
     `;
     modal.id = 'canvasModal';
-    modal.classList.add('text-center', 'position-absolute', 'fixed-top');
+    modal.classList.add('position-absolute', 'fixed-top');
     modal.style.width = `${canvas.width}px`;
     modal.style.height = `${canvas.height}px`;
-    modal.style.marginLeft = '15px'; // parent col padding (bootstrap setting)
+    modal.style.marginLeft = (canvas.parentElement.clientWidth - canvas.width) / 2 + 'px';
     modal.style.background = `${this.styles.bg}`;
     modal.querySelector('.delModal').addEventListener('click', () => {
       modal.remove();

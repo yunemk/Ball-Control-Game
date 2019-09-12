@@ -21,6 +21,31 @@ class Stage {
             "color": "lightcyan",
             "strokeColor": "black"
           },
+          "arithmetic": {
+            "subject": "答えが2になるようにたどろう",
+            "ans": 2,
+            "pos": [{
+                "char": "1",
+                "x": 1,
+                "y": 2
+              },
+              {
+                "char": "+",
+                "x": 2,
+                "y": 2
+              },
+              {
+                "char": "1",
+                "x": 3,
+                "y": 3
+              },
+              {
+                "char": "=",
+                "x": 3,
+                "y": 4
+              }
+            ]
+          },
           "canvas": {
             "background": "#fff"
           },

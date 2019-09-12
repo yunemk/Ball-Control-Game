@@ -5,12 +5,18 @@ const ctx = canvas.getContext('2d');
 const range = (start, stop, step = 1) => Array.from({
   length: (stop - start) / step + 1
 }, (_, i) => start + i * step);
-const initCanvasSizeToWidthLengthSquare = canvas => {
-  const width = canvas.parentElement.clientWidth - 15 * 2; // subtract padding size
-  canvas.width = width;
-  canvas.height = width;
+const initCanvasSizeToSmallerLengthSquare = canvas => {
+  const width = canvas.parentElement.clientWidth - 15 * 2;
+  const height = canvas.parentElement.clientHeight;
+  if (width > height) {
+    canvas.width = height;
+    canvas.height = height;
+  } else {
+    canvas.width = width;
+    canvas.height = width;
+  }
 };
-initCanvasSizeToWidthLengthSquare(canvas);
+initCanvasSizeToSmallerLengthSquare(canvas);
 
 // Main //
 const stage = new Stage();
@@ -45,7 +51,7 @@ window.onresize = () => {
     clearTimeout(timer);
   }
   timer = setTimeout(() => {
-    initCanvasSizeToWidthLengthSquare(canvas);
+    initCanvasSizeToSmallerLengthSquare(canvas);
     field = new Field(stg.field);
     alphabets = new Alphabets(field, stg.alphabets);
     arithmetic = new Arithmetic(field, stg.arithmetic);
@@ -81,7 +87,7 @@ document.getElementById('stage-list').addEventListener('click', e => {
         clearTimeout(timer);
       }
       timer = setTimeout(() => {
-        initCanvasSizeToWidthLengthSquare(canvas);
+        initCanvasSizeToSmallerLengthSquare(canvas);
         field = new Field(stg.field);
         alphabets = new Alphabets(field, stg.alphabets);
         arithmetic = new Arithmetic(field, stg.arithmetic);

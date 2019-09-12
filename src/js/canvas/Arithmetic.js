@@ -33,18 +33,18 @@ class Arithmetic {
   }
 
   showCurrentAlert() {
-    document.getElementById('arithmetic').classList.replace('d-none', 'd-block');
+    document.getElementById('arithmetic').classList.replace('d-none', 'd-flex');
     document.getElementById('arithmetic').innerHTML = `
-      <h5 class="d-inline-block p-1" style="background: #ffddf799; border-radius: 10px;">ミッション</h5>
+      <h5 class="mr-auto px-3 py-1" style="background: #ffddf799; border-radius: 10px;">ミッション</h5>
       <div class="d-flex flex-row">
         <h2 class="mr-3">${this.subject}</h2>
-        ${this.current ? `<div class="alert alert-${this.alertBgColor} align-items-center mt-n2 mb-n1 overflow-wrap-break">${this.current}${this.result !== null ? this.result : ''}</div>` : ''}
+        ${this.current ? `<div class="alert alert-${this.alertBgColor} align-items-center mb-0 mt-n2">${this.current}${this.result !== null ? this.result : ''}</div>` : ''}
       </div>
     `;
   }
 
   hideCurrentAlert() {
-    document.getElementById('arithmetic').classList.replace('d-block', 'd-none');
+    document.getElementById('arithmetic').classList.replace('d-flex', 'd-none');
   }
 
   isCorrect() {
@@ -95,7 +95,7 @@ class Arithmetic {
       }
     }
     if (this.isInvalidFormula(formulaStr)) {
-      console.error(`${this}.current have invalid character. (only number and symbols of '+', '-', '*', '/', '(' and ')' are allowed to use)`, formulaStr);
+      console.error(`${this}.current has invalid characters. (only a number and symbols of '+', '-', '*', '/', '(' and ')' are allowed to use)`, formulaStr);
       return null;
     }
     return formulaStr;

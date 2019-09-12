@@ -2,7 +2,7 @@ class RunTodos {
   getTodosArr() {
     const rawTodos = Array.from(document.getElementById('todos').children)
       .filter(el => el.classList.contains('not-empty'))
-      .map(el => el.innerText.slice(0, -2)); // remove x and break line
+      .map(el => el.firstElementChild.innerText);
     let dirEditedTodos = this.getDirEditedTodos(rawTodos);
     const compiledTodos = this.getLoopCompiledTodos(dirEditedTodos);
     return compiledTodos || null;

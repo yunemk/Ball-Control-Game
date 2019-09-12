@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="src/css/bootstrap.min.css">
   <style>
     body {
+      max-width: 100vw;
+      max-height: 100vh;
+      height: 100vh;
       font-family: Verdana, Geneva, Tahoma, sans-serif;
       letter-spacing: .06rem;
       line-height: 1.65rem;
@@ -18,38 +21,49 @@
       background: #f8f9fa;
     }
 
-    .overflow-wrap-break {
-      overflow-wrap: break-word;
+    #todos>.todos-list-item {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      font-size: 100%;
+      min-height: .5rem;
+      height: 10%;
+      padding: 0 .5rem;
+    }
+
+    #stage-list .stage-list-item {
+      padding: .5rem 1.25rem;
+      min-height: .5rem;
     }
   </style>
 </head>
 
 <body class="bg-light">
-  <section id="game" class="my-4">
+  <section id="game">
     <div class="container">
-      <div class="mb-3">
-        <div id="alphabets" class="mt-2 d-none"></div>
-        <div id="arithmetic" class="mt-2 d-none"></div>
-      </div>
       <div class="row">
-        <div class="col-md-6 mt-md-0 col-sm-12 text-center mt-2 position-relative">
-          <canvas id="gameCanvasDisplay"></canvas>
+        <div class="col-12" style="max-height: 15vh; height: 15vh;">
+          <div id="alphabets" class="d-none flex-column justify-content-center h-100"></div>
+          <div id="arithmetic" class="d-none flex-column justify-content-center h-100"></div>
         </div>
-        <div class="col-md-3 col-sm-6">
-          <div class="border border-primary h-100 px-2 mx-n2">
-            <ul id="todos" class="list-group mt-2 even-striped">
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
-              <li class="list-group-item empty">&ThinSpace;</li>
+        <div class="col-md-6 mt-md-0 col-sm-12 text-center position-relative" style="max-height: 70vh; height: 70vh;">
+          <canvas id="gameCanvasDisplay" class="d-block mx-auto"></canvas>
+        </div>
+        <div class="col-md-3 col-sm-6" style="max-height: 70vh; height: 70vh;">
+          <div class="d-flex flex-column border border-primary h-100 p-2">
+            <ul id="todos" class="d-flex flex-column list-group even-striped overflow-auto h-100">
+              <li class="list-group-item todos-list-item empty"></li>
+              <li class="list-group-item todos-list-item empty"></li>
+              <li class="list-group-item todos-list-item empty"></li>
+              <li class="list-group-item todos-list-item empty"></li>
+              <li class="list-group-item todos-list-item empty"></li>
+              <li class="list-group-item todos-list-item empty"></li>
+              <li class="list-group-item todos-list-item empty"></li>
+              <li class="list-group-item todos-list-item empty"></li>
+              <li class="list-group-item todos-list-item empty"></li>
+              <li class="list-group-item todos-list-item empty"></li>
             </ul>
-            <div class="container my-2">
+            <div class="px-2 pt-2">
               <div class="row">
                 <div class="col-xl-6 col-12">
                   <button id="resetTodos" type="button" class="btn btn-block btn-warning" role="status">リセット</button>
@@ -61,8 +75,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 col-sm-6 text-center">
-          <div class="border border-primary h-100 px-2 mx-n2">
+        <div class="col-md-3 col-sm-6 text-center" style="max-height: 70vh; height: 70vh;">
+          <div class="border border-primary h-100 px-2 mx-n2 overflow-auto">
             <h3 class="mt-2">動作を追加する</h3>
             <div id="actionsSelector" class="btn-group" role="group" aria-label="Basic example">
               <button type="button" class="btn btn-secondary active">1</button>
@@ -93,22 +107,19 @@
         </div>
       </div>
 
-      <h2 class="text-center mt-4">ステージ選択</h2>
-      <div class="text-center">
-        <div id="stage-list">
+      <div class="text-center d-flex align-items-center" style="max-height: 15vh; height: 15vh;">
+        <div id="stage-list" class="d-flex flex-column w-100">
           <ul class="list-group list-group-horizontal">
-            <li class="list-group-item list-group-item-action">ステージ-1</li>
-            <li class="list-group-item list-group-item-action">ステージ-2</li>
-            <li class="list-group-item list-group-item-action">ステージ-3</li>
+            <li class="list-group-item list-group-item-action stage-list-item">ステージ-1</li>
+            <li class="list-group-item list-group-item-action stage-list-item">ステージ-2</li>
+            <li class="list-group-item list-group-item-action stage-list-item">ステージ-3</li>
+            <li class="list-group-item list-group-item-action stage-list-item">ステージ-4</li>
           </ul>
           <ul class="list-group list-group-horizontal">
-            <li class="list-group-item list-group-item-action">ステージ-4</li>
-            <li class="list-group-item list-group-item-action">ステージ-5</li>
-            <li class="list-group-item list-group-item-action">ステージ-6</li>
-          </ul>
-          <ul class="list-group list-group-horizontal">
-            <li class="list-group-item list-group-item-action">ステージ-7</li>
-            <li class="list-group-item list-group-item-action">ステージ-8</li>
+            <li class="list-group-item list-group-item-action stage-list-item">ステージ-5</li>
+            <li class="list-group-item list-group-item-action stage-list-item">ステージ-6</li>
+            <li class="list-group-item list-group-item-action stage-list-item">ステージ-7</li>
+            <li class="list-group-item list-group-item-action stage-list-item">ステージ-8</li>
           </ul>
         </div>
       </div>
