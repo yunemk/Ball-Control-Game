@@ -25,13 +25,22 @@ class CanvasModal {
       </div>
     `;
     modal.id = 'canvasModal';
-    modal.classList.add('position-absolute', 'fixed-top');
     modal.style.width = `${canvas.width}px`;
     modal.style.height = `${canvas.height}px`;
+    modal.classList.add('position-absolute', 'fixed-top');
     modal.style.marginLeft = (canvas.parentElement.clientWidth - canvas.width) / 2 + 'px';
     modal.style.background = `${this.styles.bg}`;
+    modal.style.opacity = '0';
+    modal.style.transition = 'opacity .30s ease 0s';
+    setTimeout(() => {
+      modal.style.opacity = '1';
+    }, 200);
     modal.querySelector('.delModal').addEventListener('click', () => {
-      modal.remove();
+      setTimeout(() => modal.remove(), 300);
+      modal.style.opacity = '0';
+      if (style === 'clear') {
+        actions.resetTodos();
+      }
       document.getElementById('actions').addEventListener('click', e => {
         actions.clickHandler(e);
         actions.show();
@@ -53,11 +62,11 @@ class CanvasModal {
     if (style === 'failed') {
       this.styles.msg = '失敗';
       this.styles.textColor = 'warning';
-      this.styles.bg = '#343a407a';
+      this.styles.bg = '#343a40bf';
     } else if (style === 'clear') {
       this.styles.msg = 'クリア！';
       this.styles.textColor = 'primary';
-      this.styles.bg = '#f5f5f57a';
+      this.styles.bg = '#f5f5f5bf';
     } else if (style === 'ballError') {
       this.styles.msg = 'エラー';
       this.styles.textColor = 'danger';
@@ -65,7 +74,7 @@ class CanvasModal {
     } else if (style === 'loopError') {
       this.styles.msg = '繰り返しが間違っています';
       this.styles.textColor = 'warning';
-      this.styles.bg = '#343a407a';
+      this.styles.bg = '#343a40bf';
     } else {
       console.error(`style is not failed, clear, error or string (passed style is ${style})`);
     }

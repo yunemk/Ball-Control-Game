@@ -20,7 +20,7 @@ initCanvasSizeToSmallerLengthSquare(canvas);
 
 // Main //
 const stage = new Stage();
-const stg = stage.loadData(1);
+const stg = stage.loadData(0);
 // Initialize
 let field = new Field(stg.field);
 let alphabets = new Alphabets(field, stg.alphabets);

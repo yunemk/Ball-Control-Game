@@ -1,8 +1,8 @@
 class RunTodos {
   getTodosArr() {
     const rawTodos = Array.from(document.getElementById('todos').children)
-      .filter(el => el.classList.contains('not-empty'))
-      .map(el => el.firstElementChild.innerText);
+      .filter(todo => todo.classList.contains('not-empty'))
+      .map(emptyTodo => emptyTodo.dataset.action);
     let dirEditedTodos = this.getDirEditedTodos(rawTodos);
     const compiledTodos = this.getLoopCompiledTodos(dirEditedTodos);
     return compiledTodos || null;

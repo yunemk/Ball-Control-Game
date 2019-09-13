@@ -2,7 +2,7 @@ class Stage {
   constructor() {
     this.data = {
       "stages": {
-        "stage-1": {
+        "stage-0": {
           "field": {
             "column": 6,
             "row": 6,
@@ -62,7 +62,7 @@ class Stage {
             }
           }
         },
-        "stage-2": {
+        "stage-1": {
           "field": {
             "column": 6,
             "row": 7,
@@ -123,7 +123,7 @@ class Stage {
             }
           }
         },
-        "stage-3": {
+        "stage-2": {
           "field": {
             "column": 9,
             "row": 8,
@@ -200,7 +200,7 @@ class Stage {
             }
           }
         },
-        "stage-4": {
+        "stage-3": {
           "field": {
             "column": 6,
             "row": 6,
@@ -265,7 +265,7 @@ class Stage {
             }
           }
         },
-        "stage-5": {
+        "stage-4": {
           "field": {
             "column": 9,
             "row": 7,
@@ -356,7 +356,7 @@ class Stage {
             }
           }
         },
-        "stage-6": {
+        "stage-5": {
           "field": {
             "column": 8,
             "row": 8,
@@ -422,7 +422,7 @@ class Stage {
             }
           }
         },
-        "stage-7": {
+        "stage-6": {
           "field": {
             "column": 6,
             "row": 6,
@@ -512,7 +512,7 @@ class Stage {
             }
           }
         },
-        "stage-8": {
+        "stage-7": {
           "field": {
             "column": 9,
             "row": 9,
@@ -655,8 +655,12 @@ class Stage {
   }
 
   getNum(e) {
-    if (e.target.nodeName === 'LI') {
-      const stageNum = parseInt(e.target.textContent.replace('ステージ-', ''), 10);
+    if (e.target.nodeName === 'P' || e.target.nodeName === 'LI') {
+      const selectedLi = e.target.nodeName === 'LI' ? e.target : e.target.parentElement;
+      Array.from(document.getElementById('stage-list').children)
+        .forEach(ul => Array.from(ul.children).forEach(li => li.classList.remove('stage-selected', 'stage-action-ignore')));
+      selectedLi.classList.add('stage-selected', 'stage-action-ignore');
+      const stageNum = parseInt(selectedLi.firstElementChild.textContent.replace('ステージ-', ''), 10);
       return stageNum;
     }
   }

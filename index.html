@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>小学生用プログラミングWebアプリ</title>
+  <link rel="stylesheet" href="src/css/fontawesome.min.css">
+  <link rel="stylesheet" href="src/css/solid.min.css">
   <link rel="stylesheet" href="src/css/bootstrap.min.css">
   <style>
     body {
@@ -17,23 +19,60 @@
       line-height: 1.65rem;
     }
 
+    .vh-12_5 {
+      max-height: 12.5vh;
+      height: 12.5vh;
+    }
+
+    .vh-15 {
+      max-height: 15vh;
+      height: 15vh;
+    }
+
+    .vh-70 {
+      max-height: 70vh;
+      height: 70vh;
+    }
+
     .even-striped li:nth-child(even) {
       background: #f8f9fa;
+    }
+
+    #stage-list .stage-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 .5rem;
+      min-height: .5rem;
+      height: 100%;
+      transition: background-color .3s ease 0s;
+    }
+
+    .stage-selected {
+      background: #e5e5e5;
+    }
+
+    .stage-action-ignore {
+      pointer-events: none;
     }
 
     #todos>.todos-list-item {
       display: flex;
       align-items: center;
       text-align: center;
-      font-size: 100%;
-      min-height: .5rem;
+      min-height: .25rem;
       height: 10%;
       padding: 0 .5rem;
     }
 
-    #stage-list .stage-list-item {
-      padding: .5rem 1.25rem;
-      min-height: .5rem;
+    #actions>.actions-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: .25rem;
+      height: 12.5%;
+      padding: 0 .5rem;
     }
   </style>
 </head>
@@ -41,15 +80,51 @@
 <body class="bg-light">
   <section id="game">
     <div class="container">
-      <div class="row">
-        <div class="col-12" style="max-height: 15vh; height: 15vh;">
+      <div class="row vh-12_5">
+        <div id="stage-list" class="col-12 pt-3 pb-2">
+          <ul class="list-group list-group-horizontal h-50">
+            <li class="list-group-item list-group-item-action stage-list-item stage-selected stage-action-ignore">
+              <p class="mb-0">ステージ-0</p>
+            </li>
+            <li class="list-group-item list-group-item-action stage-list-item">
+              <p class="mb-0">ステージ-1</p>
+            </li>
+            <li class="list-group-item list-group-item-action stage-list-item">
+              <p class="mb-0">ステージ-2</p>
+            </li>
+            <li class="list-group-item list-group-item-action stage-list-item">
+              <p class="mb-0">ステージ-3</p>
+            </li>
+          </ul>
+          <ul class="list-group list-group-horizontal h-50">
+            <li class="list-group-item list-group-item-action stage-list-item">
+              <p class="mb-0">ステージ-4</p>
+            </li>
+            <li class="list-group-item list-group-item-action stage-list-item">
+              <p class="mb-0">ステージ-5</p>
+            </li>
+            <li class="list-group-item list-group-item-action stage-list-item">
+              <p class="mb-0">ステージ-6</p>
+            </li>
+            <li class="list-group-item list-group-item-action stage-list-item">
+              <p class="mb-0">ステージ-7</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row vh-15">
+        <div class="col-12">
           <div id="alphabets" class="d-none flex-column justify-content-center h-100"></div>
           <div id="arithmetic" class="d-none flex-column justify-content-center h-100"></div>
         </div>
-        <div class="col-md-6 mt-md-0 col-sm-12 text-center position-relative" style="max-height: 70vh; height: 70vh;">
+      </div>
+
+      <div class="row vh-70 pb-3">
+        <div class="col-md-6 mt-md-0 col-sm-12 text-center position-relative">
           <canvas id="gameCanvasDisplay" class="d-block mx-auto"></canvas>
         </div>
-        <div class="col-md-3 col-sm-6" style="max-height: 70vh; height: 70vh;">
+        <div class="col-md-3 col-sm-6">
           <div class="d-flex flex-column border border-primary h-100 p-2">
             <ul id="todos" class="d-flex flex-column list-group even-striped overflow-auto h-100">
               <li class="list-group-item todos-list-item empty"></li>
@@ -75,52 +150,46 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 col-sm-6 text-center" style="max-height: 70vh; height: 70vh;">
-          <div class="border border-primary h-100 px-2 mx-n2 overflow-auto">
+        <div class="col-md-3 col-sm-6 text-center">
+          <div class="d-flex flex-column border border-primary h-100 px-2 mx-n2">
             <h3 class="mt-2">動作を追加する</h3>
             <div id="actionsSelector" class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-secondary active">1</button>
-              <button type="button" class="btn btn-secondary">2</button>
-              <button type="button" class="btn btn-secondary">3</button>
+              <button type="button" class="btn btn-outline-secondary active">1</button>
+              <button type="button" class="btn btn-outline-secondary">2</button>
+              <button type="button" class="btn btn-outline-secondary">3</button>
             </div>
-            <ul id="actions" class="list-group mt-2">
-              <button type="button" class="list-group-item list-group-item-action">
-                上へ1マス<span class="badge badge-pill badge-primary float-right"></span>
-              </button>
-              <button type="button" class="list-group-item list-group-item-action">
-                右へ1マス<span class="badge badge-pill badge-primary float-right"></span>
-              </button>
-              <button type="button" class="list-group-item list-group-item-action">
-                下へ1マス<span class="badge badge-pill badge-primary float-right"></span>
-              </button>
-              <button type="button" class="list-group-item list-group-item-action">
-                左へ1マス<span class="badge badge-pill badge-primary float-right"></span>
-              </button>
-              <button type="button" class="list-group-item list-group-item-action">
-                繰り返し2回<span class="badge badge-pill badge-primary float-right"></span>
-              </button>
-              <button type="button" class="list-group-item list-group-item-action">
-                繰り返し終わり<span class="badge badge-pill badge-primary float-right"></span>
-              </button>
+            <ul id="actions" class="d-flex flex-column list-group overflow-auto h-100 mt-2">
+              <li class="list-group-item list-group-item-action actions-list-item" data-action="上へ1マス">
+                <span class="flex-grow-1"><i class="fas fa-long-arrow-alt-up fa-2x"></i></span>
+                <span class="badge badge-pill badge-primary"></span>
+              </li>
+              <li class="list-group-item list-group-item-action actions-list-item" data-action="右へ1マス">
+                <span class="flex-grow-1"><i class="fas fa-long-arrow-alt-right fa-2x"></i></span>
+                <span class="badge badge-pill badge-primary"></span>
+              </li>
+              <li class="list-group-item list-group-item-action actions-list-item" data-action="下へ1マス">
+                <span class="flex-grow-1"><i class="fas fa-long-arrow-alt-down fa-2x"></i></span>
+                <span class="badge badge-pill badge-primary"></span>
+              </li>
+              <li class="list-group-item list-group-item-action actions-list-item" data-action="左へ1マス">
+                <span class="flex-grow-1"><i class="fas fa-long-arrow-alt-left fa-2x"></i></span>
+                <span class="badge badge-pill badge-primary"></span>
+              </li>
+              <li class="list-group-item list-group-item-action actions-list-item" data-action="繰り返し2回">
+                <span class="flex-grow-1"><i class="fas fa-redo-alt fa-rotate-90 fa-lg"></i> x 2</span>
+                <span class="badge badge-pill badge-primary"></span>
+              </li>
+              <li class="list-group-item list-group-item-action actions-list-item" data-action="繰り返し終わり">
+                <span class="flex-grow-1">
+                  <span class="fa-stack">
+                    <i class="fas fa-slash fa-flip-horizontal fa-lg fa-stack-1x"></i>
+                    <i class="fas fa-redo-alt fa-rotate-90 fa-lg fa-stack-1x"></i>
+                  </span>
+                </span>
+                <span class="badge badge-pill badge-primary"></span>
+              </li>
             </ul>
           </div>
-        </div>
-      </div>
-
-      <div class="text-center d-flex align-items-center" style="max-height: 15vh; height: 15vh;">
-        <div id="stage-list" class="d-flex flex-column w-100">
-          <ul class="list-group list-group-horizontal">
-            <li class="list-group-item list-group-item-action stage-list-item">ステージ-1</li>
-            <li class="list-group-item list-group-item-action stage-list-item">ステージ-2</li>
-            <li class="list-group-item list-group-item-action stage-list-item">ステージ-3</li>
-            <li class="list-group-item list-group-item-action stage-list-item">ステージ-4</li>
-          </ul>
-          <ul class="list-group list-group-horizontal">
-            <li class="list-group-item list-group-item-action stage-list-item">ステージ-5</li>
-            <li class="list-group-item list-group-item-action stage-list-item">ステージ-6</li>
-            <li class="list-group-item list-group-item-action stage-list-item">ステージ-7</li>
-            <li class="list-group-item list-group-item-action stage-list-item">ステージ-8</li>
-          </ul>
         </div>
       </div>
     </div>
