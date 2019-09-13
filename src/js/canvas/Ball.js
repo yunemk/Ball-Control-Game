@@ -41,7 +41,7 @@ class Ball {
             this.posY = newPosY;
             resolve();
           }
-        }, 10);
+        }, 20);
       });
     }
   }

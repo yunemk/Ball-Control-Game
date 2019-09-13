@@ -43,7 +43,7 @@ function draw() {
   arithmetic.drawOn(field);
   ball.drawBallOn(field);
 }
-let curScreen = setInterval(draw, 10);
+let curScreen = setInterval(draw, 20);
 
 let timer = 0;
 window.onresize = () => {
