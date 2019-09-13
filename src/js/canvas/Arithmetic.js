@@ -1,6 +1,5 @@
 class Arithmetic {
   constructor(field, arithmetic) {
-    this.hideCurrentAlert();
     this.reset();
     if (arithmetic) {
       this.ans = arithmetic.ans;
@@ -33,18 +32,14 @@ class Arithmetic {
   }
 
   showCurrentAlert() {
-    document.getElementById('arithmetic').classList.replace('d-none', 'd-flex');
-    document.getElementById('arithmetic').innerHTML = `
-      <h5 class="mr-auto px-3 py-1" style="background: #ffddf799; border-radius: 10px;">ミッション</h5>
-      <div class="d-flex flex-row">
-        <h2 class="mr-3">${this.subject}</h2>
-        ${this.current ? `<div class="alert alert-${this.alertBgColor} align-items-center mb-0 mt-n2">${this.current}${this.result !== null ? this.result : ''}</div>` : ''}
-      </div>
+    const mission = document.getElementById('mission');
+    mission.lastElementChild.firstElementChild.textContent = this.subject;
+    const result = mission.lastElementChild.lastElementChild;
+    result.outerHTML = `
+      <h3 class="${this.current ? 'd-block' : 'd-none'} result result-${this.alertBgColor}">
+        ${this.current}${this.result == null ? '' : this.result}
+      </h3>
     `;
-  }
-
-  hideCurrentAlert() {
-    document.getElementById('arithmetic').classList.replace('d-flex', 'd-none');
   }
 
   isCorrect() {
@@ -70,7 +65,7 @@ class Arithmetic {
     try {
       const formulaStr = this.getFormulaStr();
       // isInvalidFormula function solves security problem of eval
-      // performance problem of eval function is not solved, so rewrite here if there's solution to the problem.
+      // performance problem of eval function is not solved, so rewrite here if there are some solutions to the problem.
       eval(`this.result = ${formulaStr}`);
       if (this.result === this.ans) {
         return true;
@@ -101,7 +96,6 @@ class Arithmetic {
     return formulaStr;
   }
 
-  // This function protects security of eval function
   isInvalidFormula(formulaStr) {
     strCharItr: for (const i of range(0, formulaStr.length - 1)) {
       if (!isNaN(formulaStr[i])) {

@@ -1,6 +1,5 @@
 class Alphabets {
   constructor(field, alphabets) {
-    this.hideCurrentStringAlert();
     this.reset();
     if (alphabets) {
       this.initPos = alphabets.pos;
@@ -33,18 +32,14 @@ class Alphabets {
   }
 
   showCurrentStringAlert() {
-    document.getElementById('alphabets').classList.replace('d-none', 'd-flex');
-    document.getElementById('alphabets').innerHTML = `
-      <h5 class="mr-auto px-3 py-1" style="background: #ffddf799; border-radius: 10px;">ミッション</h5>
-      <div class="d-flex flex-row">
-        <h2 class="mr-3">${this.question}</h2>
-        ${this.currentString ? `<div class="alert alert-${this.alertBgColor} align-items-center mt-n2 mb-n1">${this.currentString}</div>` : ''}
-      </div>
+    const mission = document.getElementById('mission');
+    mission.lastElementChild.firstElementChild.textContent = this.question;
+    const result = mission.lastElementChild.lastElementChild;
+    result.outerHTML = `
+      <h3 class="${this.currentString ? 'd-block' : 'd-none'} result result-${this.alertBgColor}">
+        ${this.currentString}
+      </h3>
     `;
-  }
-
-  hideCurrentStringAlert() {
-    document.getElementById('alphabets').classList.replace('d-flex', 'd-none');
   }
 
   isCorrect() {

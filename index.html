@@ -56,6 +56,32 @@
       pointer-events: none;
     }
 
+    .mission-heading {
+      background: #ffddf799;
+      border-radius: 10px;
+    }
+
+    .result {
+      position: relative;
+      padding: 0 .5rem;
+      margin: 0;
+      align-items: center;
+      border: 1px solid transparent;
+      border-radius: .25rem;
+    }
+
+    .result-warning {
+      color: #856404;
+      background-color: #fff3cd;
+      border-color: #ffeeba;
+    }
+
+    .result-info {
+      color: #0c5460;
+      background-color: #d1ecf1;
+      border-color: #bee5eb;
+    }
+
     #todos>.todos-list-item {
       display: flex;
       align-items: center;
@@ -115,8 +141,13 @@
 
       <div class="row vh-15">
         <div class="col-12">
-          <div id="alphabets" class="d-none flex-column justify-content-center h-100"></div>
-          <div id="arithmetic" class="d-none flex-column justify-content-center h-100"></div>
+          <div id="mission" class="d-flex flex-column h-100 py-2">
+            <h5 class="mission-heading mr-auto px-3 py-1 m-0">ミッション</h5>
+            <div class="d-flex flex-row align-items-center h-100">
+              <h2 class="mr-3 mb-0">ボールをゴールに動かそう</h2>
+              <h3 class="d-none result result-warning"></h3>
+            </div>
+          </div>
         </div>
       </div>
 
