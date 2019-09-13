@@ -34,7 +34,7 @@ class CanvasModal {
     modal.style.transition = 'opacity .30s ease 0s';
     setTimeout(() => {
       modal.style.opacity = '1';
-    }, 200);
+    }, 150);
     modal.querySelector('.delModal').addEventListener('click', () => {
       setTimeout(() => modal.remove(), 300);
       modal.style.opacity = '0';

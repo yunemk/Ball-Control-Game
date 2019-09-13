@@ -45,7 +45,7 @@ class Actions {
       ])) {
       const li = actions.children[liIndex++];
       li.dataset.action = `${dir}へ${num}マス`;
-      li.firstElementChild.innerHTML = `<i class="fas fa-long-arrow-alt-${key} fa-2x"></i>${num > 1 ? `x ${num}` : ''}`;
+      li.firstElementChild.innerHTML = `<i class="fas fa-long-arrow-alt-${key} fa-2x"></i>${num > 1 ? ` x ${num}` : ''}`;
       li.lastElementChild.textContent = this.dir[key][num - 1];
     }
     const loopStartLi = actions.children[liIndex++];
