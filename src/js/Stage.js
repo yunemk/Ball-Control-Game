@@ -657,10 +657,10 @@ class Stage {
   getNum(e) {
     if (e.target.nodeName === 'P' || e.target.nodeName === 'LI') {
       const selectedLi = e.target.nodeName === 'LI' ? e.target : e.target.parentElement;
-      Array.from(document.getElementById('stage-list').children)
-        .forEach(ul => Array.from(ul.children).forEach(li => li.classList.remove('stage-selected', 'stage-action-ignore')));
-      selectedLi.classList.add('stage-selected', 'stage-action-ignore');
-      const stageNum = parseInt(selectedLi.firstElementChild.textContent.replace('ステージ-', ''), 10);
+      Array.from(document.getElementById('stage-list').lastElementChild.children)
+        .forEach(li => li.classList.remove('stage-selected'));
+      selectedLi.classList.add('stage-selected');
+      const stageNum = parseInt(selectedLi.dataset.stageNum, 10);
       return stageNum;
     }
   }

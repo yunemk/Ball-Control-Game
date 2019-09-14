@@ -14,6 +14,10 @@ class Ball {
     this.color = ballData.color || 'cyan';
     this.strokeColor = ballData.strokeColor || 'black';
     this.moving = false;
+    this.imgLoaded = false;
+    this.img = new Image();
+    this.img.onload = () => this.imgLoaded = true;
+    this.img.src = 'src/img/running_human.png';
   }
 
   moveTo(x, y) {
@@ -53,11 +57,15 @@ class Ball {
       x: this.posX * field.colScale + field.colScale / 2,
       y: this.posY * field.rowScale + field.rowScale / 2
     }
-    ctx.fillStyle = this.color;
-    ctx.arc(centerOfBall.x, centerOfBall.y, this.r, 0, Math.PI * 2, false);
-    ctx.fill();
-    ctx.strokeStyle = this.strokeColor;
-    ctx.stroke();
-    ctx.closePath();
+    if (this.imgLoaded) {
+      ctx.drawImage(this.img, this.posX * field.colScale, this.posY * field.rowScale, field.colScale - 4, field.rowScale - 4);
+    } else {
+      ctx.fillStyle = this.color;
+      ctx.arc(centerOfBall.x, centerOfBall.y, this.r, 0, Math.PI * 2, false);
+      ctx.fill();
+      ctx.strokeStyle = this.strokeColor;
+      ctx.stroke();
+      ctx.closePath();
+    }
   }
 }

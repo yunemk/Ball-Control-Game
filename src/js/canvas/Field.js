@@ -12,6 +12,10 @@ class Field {
         this.setBlockStatus(c, r, fieldData.status[r][c]);
       }
     }
+    this.imgLoaded = false;
+    this.goalImg = new Image();
+    this.goalImg.onload = () => this.imgLoaded = true;
+    this.goalImg.src = 'src/img/goal.png';
   }
 
   drawFieldLines() {
@@ -35,8 +39,13 @@ class Field {
     const colScale = canvas.width / this.column;
     for (let c = 0; c < this.column; c++) {
       for (let r = 0; r < this.row; r++) {
-        ctx.fillStyle = this.blockStatus[c][r];
-        ctx.fillRect(c * colScale + 2, r * rowScale + 2, colScale - 4, rowScale - 4);
+        // Separate magenta (which means goal the area) from blockStatus
+        if (this.blockStatus[c][r] === "magenta" && this.imgLoaded) {
+          ctx.drawImage(this.goalImg, c * colScale + 1, r * rowScale + 2, colScale - 4, rowScale - 4);
+        } else {
+          ctx.fillStyle = this.blockStatus[c][r];
+          ctx.fillRect(c * colScale + 2, r * rowScale + 2, colScale - 4, rowScale - 4);
+        }
       }
     }
   }
