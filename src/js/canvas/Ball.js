@@ -1,5 +1,6 @@
 class Ball {
-  constructor(field, ballData) {
+  constructor(field, ballData, settings) {
+    this.settings = settings;
     this.initPosX = ballData.initPosX != null ? ballData.initPosX : 1;
     this.initPosY = ballData.initPosY != null ? ballData.initPosY : 1;
     this.posX = this.initPosX;
@@ -30,7 +31,7 @@ class Ball {
     this.posY = this.initPosY;
   }
 
-  async moveSmooth(dx, dy, smoothness) {
+  async moveSmooth(dx, dy, smoothness = 100) {
     const newPosX = this.posX + dx;
     const newPosY = this.posY + dy;
     for (let i = 0; i < smoothness; i++) {
@@ -45,7 +46,7 @@ class Ball {
             this.posY = newPosY;
             resolve();
           }
-        }, 20);
+        }, 7);
       });
     }
   }

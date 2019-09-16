@@ -155,16 +155,16 @@ class RunTodos {
   async moveBallSmooth(todo, ball) {
     switch (todo) {
       case '上へ1マス':
-        await ball.moveSmooth(0, -1, 35);
+        await ball.moveSmooth(0, -1);
         break;
       case '右へ1マス':
-        await ball.moveSmooth(1, 0, 35);
+        await ball.moveSmooth(1, 0);
         break;
       case '下へ1マス':
-        await ball.moveSmooth(0, 1, 35);
+        await ball.moveSmooth(0, 1);
         break;
       case '左へ1マス':
-        await ball.moveSmooth(-1, 0, 35);
+        await ball.moveSmooth(-1, 0);
         break;
     }
   }

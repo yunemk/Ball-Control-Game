@@ -7,6 +7,20 @@ body {
   line-height: 1.65rem;
 }
 
+.settings {
+  z-index: 100;
+  top: .5rem;
+  right: 1rem;
+}
+
+.settings .fa-cog {
+  color: gray;
+}
+
+.settings .fa-cog:hover {
+  color: #5b7c8a;
+}
+
 .vh-12_5 {
   max-height: 12.5vh;
   height: 12.5vh;

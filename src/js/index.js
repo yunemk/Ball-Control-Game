@@ -21,11 +21,12 @@ initCanvasSizeToSmallerLengthSquare(canvas);
 // Main //
 const stage = new Stage();
 const stg = stage.loadData(0);
+const settings = new GameSettings();
 // Initialize
 let field = new Field(stg.field);
 let alphabets = new Alphabets(field, stg.alphabets);
 let arithmetic = new Arithmetic(field, stg.arithmetic);
-let ball = new Ball(field, stg.ball);
+let ball = new Ball(field, stg.ball, settings);
 let canvasModal = new CanvasModal();
 let actions = new Actions(stg.actionsBadgeNum);
 const runTodos = new RunTodos();
@@ -43,21 +44,7 @@ function draw() {
   arithmetic.drawOn(field);
   ball.drawBallOn(field);
 }
-let curScreen = setInterval(draw, 20);
-
-let timer = 0;
-window.onresize = () => {
-  if (timer > 0) {
-    clearTimeout(timer);
-  }
-  timer = setTimeout(() => {
-    initCanvasSizeToSmallerLengthSquare(canvas);
-    field = new Field(stg.field);
-    alphabets = new Alphabets(field, stg.alphabets);
-    arithmetic = new Arithmetic(field, stg.arithmetic);
-    ball = new Ball(field, stg.ball);
-  }, 200);
-};
+let curScreen = setInterval(draw, settings.msPerFrame);
 
 document.getElementById('stage-list').addEventListener('click', e => {
   const stageNum = stage.getNum(e);
@@ -67,7 +54,7 @@ document.getElementById('stage-list').addEventListener('click', e => {
     field = new Field(stg.field);
     alphabets = new Alphabets(field, stg.alphabets);
     arithmetic = new Arithmetic(field, stg.arithmetic);
-    ball = new Ball(field, stg.ball);
+    ball = new Ball(field, stg.ball, settings);
     canvasModal = new CanvasModal();
     actions = new Actions(stg.actionsBadgeNum);
     canvas.style.background = stg.canvas.background || '#fff';
@@ -79,20 +66,6 @@ document.getElementById('stage-list').addEventListener('click', e => {
     });
 
     clearInterval(curScreen);
-    curScreen = setInterval(draw, 10);
-
-    timer = 0;
-    window.onresize = () => {
-      if (timer > 0) {
-        clearTimeout(timer);
-      }
-      timer = setTimeout(() => {
-        initCanvasSizeToSmallerLengthSquare(canvas);
-        field = new Field(stg.field);
-        alphabets = new Alphabets(field, stg.alphabets);
-        arithmetic = new Arithmetic(field, stg.arithmetic);
-        ball = new Ball(field, stg.ball);
-      }, 200);
-    };
+    curScreen = setInterval(draw, settings.msPerFrame);
   }
 });
