@@ -36,25 +36,47 @@ class Actions {
   show() {
     const num = this.selectedBadge;
     const actions = document.getElementById('actions');
-    let liIndex = 0;
+    actions.innerHTML = '';
     for (let [key, dir] of new Map([
         ['up', '上'],
         ['right', '右'],
-        ['down', '下'],
-        ['left', '左']
+        ['left', '左'],
+        ['down', '下']
       ])) {
-      const li = actions.children[liIndex++];
+      const li = document.createElement('li');
+      li.classList = 'list-group-item list-group-item-action actions-list-item';
       li.dataset.action = `${dir}へ${num}マス`;
-      li.firstElementChild.innerHTML = `<i class="fas fa-long-arrow-alt-${key} fa-2x"></i>${num > 1 ? ` x ${num}` : ''}`;
-      li.lastElementChild.textContent = this.dir[key][num - 1];
+      li.innerHTML = `
+        <span class="flex-grow-1"><i class="fas fa-long-arrow-alt-${key} fa-2x"></i>${num > 1 ? ` x ${num}`: ''}</span>
+        <span class="badge badge-pill badge-primary">${this.dir[key][num-1]}</span>
+      `;
+      actions.appendChild(li);
     }
-    const loopStartLi = actions.children[liIndex++];
-    loopStartLi.dataset.action = `繰り返し${num + 1}回`;
-    loopStartLi.firstElementChild.innerHTML = `<i class="fas fa-redo-alt fa-rotate-90 fa-lg"></i> x ${num + 1}`;
-    loopStartLi.lastElementChild.textContent = this.loop.start[num - 1];
-    const loopEndLi = actions.children[liIndex++];
-    loopEndLi.lastElementChild.textContent = this.loop.end;
-
+    if (num === 1) {
+      for (let i = 2; i <= 4; i++) {
+        const loopStartLi = document.createElement('li');
+        loopStartLi.classList = 'list-group-item list-group-item-action actions-list-item';
+        loopStartLi.dataset.action = `繰り返し${i}回`;
+        loopStartLi.innerHTML = `
+          <span class="flex-grow-1"><i class="fas fa-redo-alt fa-rotate-90 fa-lg"></i> x ${i}</span>
+          <span class="badge badge-pill badge-primary">${this.loop.start[i - 2]}</span>
+        `;
+        actions.appendChild(loopStartLi);
+      }
+      const loopEndLi = document.createElement('li');
+      loopEndLi.classList = 'list-group-item list-group-item-action actions-list-item';
+      loopEndLi.dataset.action = '繰り返し終わり';
+      loopEndLi.innerHTML = `
+        <span class="flex-grow-1">
+          <span class="fa-stack">
+            <i class="fas fa-slash fa-flip-horizontal fa-lg fa-stack-1x"></i>
+            <i class="fas fa-redo-alt fa-rotate-90 fa-lg fa-stack-1x"></i>
+          </span>
+        </span>
+        <span class="badge badge-pill badge-primary">${this.loop.end}</span>
+      `;
+      actions.appendChild(loopEndLi);
+    }
     const badges = Array.from(actions.children).map(action => action.lastElementChild);
     badges.forEach(badge => badge.classList.replace('badge-secondary', 'badge-primary'));
     const zeroBadgeElms = badges.filter(badge => parseInt(badge.textContent, 10) === 0);
@@ -110,7 +132,7 @@ class Actions {
   }
 
   decrementSelectedActionNum(str) {
-    for (let [key, dir] of new Map([
+    for (const [key, dir] of new Map([
         ['up', '上'],
         ['right', '右'],
         ['down', '下'],
@@ -120,8 +142,12 @@ class Actions {
         return this.dir[key][this.selectedBadge - 1]--;
       }
     }
-    if (str === `繰り返し${this.selectedBadge + 1}回`) {
-      return this.loop.start[this.selectedBadge - 1]--;
+    if (this.selectedBadge === 1) {
+      for (let i = 2; i <= 4; i++) {
+        if (str === `繰り返し${i}回`) {
+          return this.loop.start[i - 2]--;
+        }
+      }
     }
     if (str === '繰り返し終わり') {
       return this.loop.end--;
@@ -130,7 +156,7 @@ class Actions {
   }
 
   incrementSelectedActionNum(str) {
-    for (let [key, dir] of new Map([
+    for (const [key, dir] of new Map([
         ['up', '上'],
         ['right', '右'],
         ['down', '下'],
