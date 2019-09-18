@@ -21,92 +21,6 @@ class Stage {
             "color": "lightcyan",
             "strokeColor": "black"
           },
-          "arithmetic": {
-            "subject": "答えが2になるようにたどろう",
-            "ans": 2,
-            "pos": [{
-                "char": "1",
-                "x": 1,
-                "y": 2
-              },
-              {
-                "char": "+",
-                "x": 2,
-                "y": 2
-              },
-              {
-                "char": "1",
-                "x": 3,
-                "y": 3
-              },
-              {
-                "char": "=",
-                "x": 3,
-                "y": 4
-              }
-            ]
-          },
-          "canvas": {
-            "background": "#fff"
-          },
-          "actionsBadgeNum": {
-            "dir": {
-              "up": [5, 5, 5],
-              "right": [5, 5, 5],
-              "down": [5, 5, 5],
-              "left": [5, 5, 5]
-            },
-            "loop": {
-              "start": [5, 5, 5],
-              "end": 5
-            }
-          }
-        },
-        "stage-1": {
-          "field": {
-            "column": 6,
-            "row": 7,
-            "status": [
-              [0, 0, 0, 0, 0, 0],
-              [0, 1, 1, 1, 2, 0],
-              [0, 1, 1, 1, 1, 0],
-              [0, 1, 1, 1, 1, 0],
-              [0, 1, 1, 1, 1, 0],
-              [0, 1, 1, 1, 1, 0],
-              [0, 0, 0, 0, 0, 0]
-            ]
-          },
-          "ball": {
-            "initPosX": 1,
-            "initPosY": 5,
-            "color": "cyan",
-            "strokeColor": "black"
-          },
-          "alphabets": {
-            "question": "「良い」を英語で？",
-            "ans": "good",
-            "pos": [{
-                "char": "g",
-                "x": 2,
-                "y": 2
-              },
-              {
-                "char": "o",
-                "x": 3,
-                "y": 4
-              },
-              {
-                "char": "o",
-                "x": 3,
-                "y": 5
-              },
-              {
-                "char": "d",
-                "x": 3,
-                "y": 1
-              }
-            ]
-          },
           "canvas": {
             "background": "#fff"
           },
@@ -123,84 +37,7 @@ class Stage {
             }
           }
         },
-        "stage-2": {
-          "field": {
-            "column": 9,
-            "row": 8,
-            "status": [
-              [0, 0, 0, 0, 0, 0, 0, 0, 0],
-              [0, 1, 1, 1, 1, 1, 1, 1, 0],
-              [0, 1, 1, 1, 1, 1, 1, 1, 0],
-              [0, 1, 1, 1, 1, 1, 1, 1, 0],
-              [0, 1, 0, 0, 0, 1, 1, 1, 0],
-              [0, 1, 0, 2, 0, 1, 1, 1, 0],
-              [0, 1, 0, 1, 1, 1, 1, 1, 0],
-              [0, 0, 0, 0, 0, 0, 0, 0, 0]
-            ]
-          },
-          "ball": {
-            "initPosX": 1,
-            "initPosY": 1,
-            "color": "darkcyan",
-            "strokeColor": "black"
-          },
-          "arithmetic": {
-            "subject": "答えが5になるようにたどろう",
-            "ans": 5,
-            "pos": [{
-                "char": "1",
-                "x": 2,
-                "y": 2
-              },
-              {
-                "char": "+",
-                "x": 4,
-                "y": 3
-              },
-              {
-                "char": "6",
-                "x": 5,
-                "y": 4
-              },
-              {
-                "char": "8",
-                "x": 6,
-                "y": 4
-              },
-              {
-                "char": "3",
-                "x": 1,
-                "y": 6
-              },
-              {
-                "char": "=",
-                "x": 5,
-                "y": 6
-              },
-              {
-                "char": "2",
-                "x": 7,
-                "y": 6
-              }
-            ]
-          },
-          "canvas": {
-            "background": "#fff"
-          },
-          "actionsBadgeNum": {
-            "dir": {
-              "up": [3, 3, 3],
-              "right": [3, 3, 3],
-              "down": [3, 3, 3],
-              "left": [3, 3, 3]
-            },
-            "loop": {
-              "start": [3, 1, 0],
-              "end": 3
-            }
-          }
-        },
-        "stage-3": {
+        "stage-1": {
           "field": {
             "column": 6,
             "row": 6,
@@ -216,7 +53,7 @@ class Stage {
           "ball": {
             "initPosX": 1,
             "initPosY": 1,
-            "color": "lightgreen",
+            "color": "cyan",
             "strokeColor": "black"
           },
           "arithmetic": {
@@ -265,78 +102,47 @@ class Stage {
             }
           }
         },
-        "stage-4": {
+        "stage-2": {
           "field": {
-            "column": 9,
-            "row": 7,
+            "column": 6,
+            "row": 6,
             "status": [
-              [0, 0, 0, 0, 0, 0, 0, 0, 0],
-              [0, 1, 1, 1, 1, 1, 1, 1, 0],
-              [0, 1, 1, 1, 0, 1, 0, 1, 0],
-              [0, 1, 1, 1, 0, 2, 0, 1, 0],
-              [0, 1, 1, 1, 0, 0, 0, 1, 0],
-              [0, 1, 1, 1, 1, 1, 1, 1, 0],
-              [0, 0, 0, 0, 0, 0, 0, 0, 0]
+              [0, 0, 0, 0, 0, 0],
+              [0, 1, 1, 1, 1, 0],
+              [0, 1, 1, 1, 1, 0],
+              [0, 1, 1, 1, 1, 0],
+              [0, 1, 1, 1, 2, 0],
+              [0, 0, 0, 0, 0, 0]
             ]
           },
           "ball": {
             "initPosX": 1,
-            "initPosY": 5,
-            "color": "green",
+            "initPosY": 1,
+            "color": "darkcyan",
             "strokeColor": "black"
           },
           "arithmetic": {
-            "subject": "答えが13になるようにたどろう",
-            "ans": 13,
+            "subject": "答えが2になるようにたどろう",
+            "ans": 2,
             "pos": [{
-                "char": "3",
-                "x": 1,
-                "y": 1
-              },
-              {
                 "char": "1",
-                "x": 6,
-                "y": 1
-              },
-              {
-                "char": "-",
                 "x": 1,
                 "y": 2
-              },
-              {
-                "char": "=",
-                "x": 5,
-                "y": 2
-              },
-              {
-                "char": "4",
-                "x": 2,
-                "y": 3
-              },
-              {
-                "char": "2",
-                "x": 1,
-                "y": 4
-              },
-              {
-                "char": "×",
-                "x": 2,
-                "y": 4
-              },
-              {
-                "char": "1",
-                "x": 2,
-                "y": 5
-              },
-              {
-                "char": "3",
-                "x": 6,
-                "y": 5
               },
               {
                 "char": "+",
-                "x": 7,
-                "y": 5
+                "x": 2,
+                "y": 2
+              },
+              {
+                "char": "1",
+                "x": 3,
+                "y": 3
+              },
+              {
+                "char": "=",
+                "x": 3,
+                "y": 4
               }
             ]
           },
@@ -345,18 +151,18 @@ class Stage {
           },
           "actionsBadgeNum": {
             "dir": {
-              "up": [3, 3, 3],
-              "right": [3, 3, 3],
-              "down": [3, 3, 3],
-              "left": [3, 3, 3]
+              "up": [5, 5, 5],
+              "right": [5, 5, 5],
+              "down": [5, 5, 5],
+              "left": [5, 5, 5]
             },
             "loop": {
-              "start": [2, 2, 0],
-              "end": 4
+              "start": [5, 5, 5],
+              "end": 5
             }
           }
         },
-        "stage-5": {
+        "stage-3": {
           "field": {
             "column": 8,
             "row": 8,
@@ -422,7 +228,7 @@ class Stage {
             }
           }
         },
-        "stage-6": {
+        "stage-4": {
           "field": {
             "column": 6,
             "row": 6,
@@ -442,8 +248,8 @@ class Stage {
             "strokeColor": "black"
           },
           "arithmetic": {
-            "subject": "答えが40になるようにたどろう",
-            "ans": 40,
+            "subject": "答えが30になるようにたどろう",
+            "ans": 30,
             "pos": [{
                 "char": "2",
                 "x": 2,
@@ -458,11 +264,6 @@ class Stage {
                 "char": "3",
                 "x": 4,
                 "y": 1
-              },
-              {
-                "char": "0",
-                "x": 1,
-                "y": 2
               },
               {
                 "char": "+",
@@ -509,6 +310,182 @@ class Stage {
             "loop": {
               "start": [1, 1, 1],
               "end": 1
+            }
+          }
+        },
+        "stage-5": {
+          "field": {
+            "column": 7,
+            "row": 6,
+            "status": [
+              [0, 0, 0, 0, 0, 0, 0],
+              [0, 1, 1, 1, 1, 0, 0],
+              [0, 1, 1, 1, 1, 0, 0],
+              [0, 1, 1, 1, 1, 0, 0],
+              [0, 1, 1, 1, 1, 2, 0],
+              [0, 0, 0, 0, 0, 0, 0]
+            ]
+          },
+          "ball": {
+            "initPosX": 1,
+            "initPosY": 1,
+            "color": "lightgreen",
+            "strokeColor": "black"
+          },
+          "arithmetic": {
+            "subject": "答えが1になるようにたどろう",
+            "ans": 1,
+            "pos": [{
+              "char": "9",
+              "x": 2,
+              "y": 1
+            }, {
+              "char": "+",
+              "x": 3,
+              "y": 1
+            }, {
+              "char": "9",
+              "x": 1,
+              "y": 2
+            }, {
+              "char": "-",
+              "x": 2,
+              "y": 2
+            }, {
+              "char": "-",
+              "x": 1,
+              "y": 3
+            }, {
+              "char": "3",
+              "x": 2,
+              "y": 3
+            }, {
+              "char": "2",
+              "x": 4,
+              "y": 3
+            }, {
+              "char": "+",
+              "x": 2,
+              "y": 4
+            }, {
+              "char": "6",
+              "x": 3,
+              "y": 4
+            }, {
+              "char": "=",
+              "x": 4,
+              "y": 4
+            }]
+          },
+          "canvas": {
+            "background": "#fff"
+          },
+          "actionsBadgeNum": {
+            "dir": {
+              "up": [3, 3, 3],
+              "right": [3, 3, 3],
+              "down": [3, 3, 3],
+              "left": [3, 3, 3]
+            },
+            "loop": {
+              "start": [3, 1, 0],
+              "end": 3
+            }
+          }
+        },
+        "stage-6": {
+          "field": {
+            "column": 9,
+            "row": 7,
+            "status": [
+              [0, 0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 1, 1, 1, 1, 1, 1, 1, 0],
+              [0, 1, 1, 1, 0, 1, 0, 1, 0],
+              [0, 1, 1, 1, 0, 2, 0, 1, 0],
+              [0, 1, 1, 1, 0, 0, 0, 1, 0],
+              [0, 1, 1, 1, 1, 1, 1, 1, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            ]
+          },
+          "ball": {
+            "initPosX": 1,
+            "initPosY": 5,
+            "color": "green",
+            "strokeColor": "black"
+          },
+          "arithmetic": {
+            "subject": "答えが13になるようにたどろう",
+            "ans": 13,
+            "pos": [{
+                "char": "3",
+                "x": 1,
+                "y": 1
+              },
+              {
+                "char": "1",
+                "x": 6,
+                "y": 1
+              },
+              {
+                "char": "-",
+                "x": 1,
+                "y": 2
+              },
+              {
+                "char": "=",
+                "x": 5,
+                "y": 2
+              },
+              {
+                "char": "4",
+                "x": 2,
+                "y": 3
+              },
+              {
+                "char": "2",
+                "x": 1,
+                "y": 4
+              },
+              {
+                "char": "×",
+                "x": 2,
+                "y": 4
+              },
+              {
+                "char": "1",
+                "x": 2,
+                "y": 5
+              },
+              {
+                "char": "+",
+                "x": 3,
+                "y": 5
+              },
+              {
+                "char": "3",
+                "x": 6,
+                "y": 5
+              },
+              {
+                "char": "+",
+                "x": 7,
+                "y": 5
+              }
+            ]
+          },
+          "canvas": {
+            "background": "#fff"
+          },
+          "actionsBadgeNum": {
+            "dir": {
+              "up": [3, 3, 3],
+              "right": [3, 3, 3],
+              "down": [3, 3, 3],
+              "left": [3, 3, 3]
+            },
+            "loop": {
+              "start": [2, 2, 0],
+              "end": 4
             }
           }
         },

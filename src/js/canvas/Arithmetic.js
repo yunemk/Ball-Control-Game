@@ -1,6 +1,7 @@
 class Arithmetic {
   constructor(field, arithmetic) {
     this.reset();
+    document.getElementById('mission').lastElementChild.firstElementChild.textContent = '人間をゴールに動かそう';
     if (arithmetic) {
       this.ans = arithmetic.ans;
       this.fontSize = `${(field.colScale > field.rowScale ? field.rowScale : field.rowScale) - 20}px`;
