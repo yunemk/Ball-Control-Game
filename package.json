@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron .",
     "dist:win": "electron-builder build --win",
-    "dist:mac": "electron-builder build --mac"
+    "dist:mac": "electron-builder build --mac",
+    "dist:linux": "electron-builder build --linux"
   },
   "build": {
     "appId": "com.example.ball",
@@ -15,6 +16,9 @@
     },
     "mac": {
       "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
     }
   },
   "repository": {
@@ -29,7 +33,7 @@
   },
   "homepage": "https://github.com/yunemk/Ball-Control-Game#readme",
   "devDependencies": {
-    "electron": "^6.0.7",
-    "electron-builder": "^21.2.0"
+    "electron": "^13.1.6",
+    "electron-builder": "^22.11.7"
   }
 }
