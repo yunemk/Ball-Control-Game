@@ -10,29 +10,28 @@
 * 真ん中のリストに動作を並べたら実行をクリックします。
 * ボールが指定した通りに動きます。
 
-## 注意点
-* IE では動きません。
-
 ---
-## コンセプト
 
->for 文を使ったアルゴリズム、アルゴリズムと数学の関係性、アルゴリズムと英字文章の関係性、チームワーク（コミュニケーション能力）の考え方を身につけてもらう
-
-ことが形式的な目標です。
-
----
 ## セットアップ
 モジュールのインストール
 
-`npm ci`
+```shell
+npm ci
+```
 
 アプリの起動
 
-`npm run start`
+```shell
+npm run start
+```
 
 配布可能な形式でパッケージング
 
-`npm run dist:(win/mac)`
+```shell
+npm run dist:win    # Windows
+npm run dist:mac    # macOS
+npm run dist:linux  # Linux
+```
 
 ## ステージの情報
 ステージ情報は *src/js/stage.js* に記載しています。
